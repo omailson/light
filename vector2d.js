@@ -356,6 +356,13 @@ Vector2D.reflect = function (vector, normal) {
     return vec3;
 };
 
+/**
+ * The norm of the cross product between this vector and a given vector
+ *
+ * @method crossProduct
+ * @param v {Vector2D} the other vector to compute the cross product
+ * @return {Number} the magnitude of the resulting vector
+ */
 Vector2D.prototype.crossProduct = function (v) {
     return this.x*v.y - this.y*v.x;
 };

@@ -109,6 +109,18 @@ MathHelper.rotatePoint = function (point, origin, angle) {
     return {x: vector.x + origin.x, y: vector.y + origin.y};
 };
 
+/**
+ * Check whether a number is between to other numbers
+ *
+ * If min is greater than max, they will be swapped before proceding
+ *
+ * @method between
+ * @static
+ * @param min {Number} the left side limit
+ * @param value {Number} the number to compare
+ * @param max {Number} the right side limit
+ * @return {Boolean} whether the number is between the other numbers
+ */
 MathHelper.between = function (min, value, max) {
     if (min > max) {
         var aux = max;
