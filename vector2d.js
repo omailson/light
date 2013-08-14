@@ -366,3 +366,7 @@ Vector2D.reflect = function (vector, normal) {
 Vector2D.prototype.crossProduct = function (v) {
     return this.x*v.y - this.y*v.x;
 };
+
+Vector2D.fromPoints = function (p1, p2) {
+    return new Vector2D(p2.x - p1.x, p2.y - p1.y);
+};

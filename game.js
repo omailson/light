@@ -17,7 +17,9 @@ var paintrays = function (rays) {
     context.restore();
 };
 
-var l = new Light(
+var world = new World();
+
+var l = world.createLightSource(
     {x: 100, y: 100},
     [
         {x: 400, y: 20},
@@ -36,16 +38,22 @@ var o2 = new Opaque(
     {x: 250, y: 70}
 );
 
+world.addObject(o);
+world.addObject(o2);
+
 var paint = function () {
-    // reset canvas
-    canvas.width = canvas.width;
+    l.computeRays();
+    world.paint(context);
 
-    l.addOpaque(o);
-    l.addOpaque(o2);
+    paintrays(l.rays);
+};
 
-    l.paint(context);
-    o.paint(context);
-    o2.paint(context);
-
-    paintrays(l.lights);
+var paintvector = function (v) {
+    context.save();
+    context.beginPath();
+    context.translate(200, 150);
+    context.moveTo(0, 0);
+    context.lineTo(v.x, v.y);
+    context.restore();
+    context.stroke();
 };
