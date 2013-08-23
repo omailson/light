@@ -1,3 +1,11 @@
+/**
+ * This class represents a source of light
+ *
+ * @class Light
+ * @param pos {Object} Source position
+ * @param points {Array} An array of two points. They are the initial points of the light
+ * @param color {String} The color of the light
+ */
 var Light = function (pos, points, color) {
     this.world = null;
 
@@ -7,6 +15,12 @@ var Light = function (pos, points, color) {
     this.points = points;
 };
 
+/**
+ * Paints the light into a context
+ *
+ * @method paint
+ * @param context {CanvasRenderingContext2D} A canvas context 2D
+ */
 Light.prototype.paint = function (context) {
     context.fillStyle = this.color;
     context.beginPath();
@@ -18,6 +32,11 @@ Light.prototype.paint = function (context) {
     context.fill();
 };
 
+/**
+ * Recalculate the collection of rays. It looks for the objects in the world
+ *
+ * @method computeRays
+ */
 Light.prototype.computeRays = function () {
     this.rays = [];
 
@@ -32,6 +51,12 @@ Light.prototype.computeRays = function () {
     }
 };
 
+/**
+ * Add a opaque object to compute the rays
+ *
+ * @method addOpaque
+ * @method opaque {Opaque} An opaque object
+ */
 Light.prototype.addOpaque = function (opaque) {
     var p;
     var opaqueSegment = new LineSegment(opaque.p1, opaque.p2);
@@ -76,6 +101,16 @@ Light.prototype.addOpaque = function (opaque) {
     }
 };
 
+/**
+ * Given a point and a vector, returns a Ray that starts in point and goes in
+ * the direction of the given vector until it hits a wall
+ *
+ * @method _createFiniteRay
+ * @param point {Object} Starting point
+ * @param vector {Vector2D} Direction of the Ray
+ * @return {Ray} The computed Ray
+ * @private
+ */
 Light.prototype._createFiniteRay = function (point, vector) {
     var w = this.world._bounds.width;
     var h = this.world._bounds.height;
@@ -113,6 +148,12 @@ Light.prototype._createFiniteRay = function (point, vector) {
     }
 };
 
+/**
+ * Add a Ray to the collection in the correct order
+ *
+ * @method insertRay
+ * @param ray {Ray} The Ray to add
+ */
 Light.prototype.insertRay = function (ray) {
     for (var i = 0; i < this.rays.length; i++) {
         var cp = this.rays[i].toVector().crossProduct(ray.toVector());
@@ -123,6 +164,13 @@ Light.prototype.insertRay = function (ray) {
     }
 };
 
+/**
+ * Whether a point is inside the region illuminated by the Light
+ *
+ * @method contains
+ * @param p {Object} The point to be checked
+ * @return {Boolean} Whether the point is being illuminated
+ */
 Light.prototype.contains = function (p) {
     if (this.rays.length === 0)
         return false;

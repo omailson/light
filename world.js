@@ -1,3 +1,8 @@
+/**
+ * A World
+ *
+ * @class World
+ */
 var World = function () {
     this._bounds = {width: 400, height: 300};
     this._lights = [];
@@ -5,6 +10,14 @@ var World = function () {
     this._objects = [];
 };
 
+/**
+ * Sets the World bounds
+ *
+ * @method setBounds
+ * @param bounds {Object} World bounds
+ * @param bounds.width {Number}
+ * @param bounds.height {Number}
+ */
 World.prototype.setBounds = function (bounds) {
     this._bounds = bounds;
 };

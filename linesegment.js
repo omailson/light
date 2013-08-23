@@ -1,12 +1,31 @@
+/**
+ * A line segment
+ *
+ * @class LineSegment
+ * @param p1 {Object} Starting point
+ * @param p2 {Object} Ending point
+ */
 var LineSegment = function (p1, p2) {
     this.p1 = p1;
     this.p2 = p2;
 };
 
+/**
+ * Returns the vector (p2 - p1)
+ *
+ * @method toVector
+ * @return {Vector2D} The vector representation of this line segment
+ */
 LineSegment.prototype.toVector = function () {
     return new Vector2D(this.p2.x - this.p1.x, this.p2.y - this.p1.y);
 };
 
+/**
+ * Whether this line segment intersects another LineSegment
+ *
+ * @param line {LineSegment} another line segment
+ * @return {Boolean} whether the intersection happens
+ */
 LineSegment.prototype.intersection = function (line) {
     var p1 = this.p1;
     var p2 = this.p2;
