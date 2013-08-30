@@ -10,7 +10,6 @@ var Light = function (pos, points, color) {
     this.world = null;
 
     this.pos = pos;
-    this.rays = [];
     this.color = color;
     this.points = points;
 };
@@ -21,13 +20,13 @@ var Light = function (pos, points, color) {
  * @method paint
  * @param context {CanvasRenderingContext2D} A canvas context 2D
  */
-Light.prototype.paint = function (context) {
+Light.prototype.paint = function (context, rays) {
     context.fillStyle = this.color;
     context.beginPath();
     context.moveTo(this.pos.x, this.pos.y);
-    for (var i = 0; i < this.rays.length; i++) {
-        context.lineTo(this.rays[i].oriented().p1.x, this.rays[i].oriented().p1.y);
-        context.lineTo(this.rays[i].oriented().p2.x, this.rays[i].oriented().p2.y);
+    for (var i = 0; i < rays.data.length; i++) {
+        context.lineTo(rays.data[i].oriented().p1.x, rays.data[i].oriented().p1.y);
+        context.lineTo(rays.data[i].oriented().p2.x, rays.data[i].oriented().p2.y);
     }
     context.fill();
 };
@@ -36,19 +35,20 @@ Light.prototype.paint = function (context) {
  * Recalculate the collection of rays. It looks for the objects in the world
  *
  * @method computeRays
+ * @return {RayCollection}
  */
 Light.prototype.computeRays = function () {
-    this.rays = [];
-
-    this.rays.push(this._createFiniteRay(this.pos, Vector2D.fromPoints(this.pos, this.points[0])));
-    var ray = this._createFiniteRay(this.pos, Vector2D.fromPoints(this.pos, this.points[1]));
-    ray.orientation = -1;
-    this.rays.push(ray);
+    var startRay = this._createFiniteRay(this.pos, Vector2D.fromPoints(this.pos, this.points[0]));
+    var endRay = this._createFiniteRay(this.pos, Vector2D.fromPoints(this.pos, this.points[1]));
+    endRay.orientation = -1;
+    var rays = new RayCollection(startRay, endRay);
 
     var objects = this.world._objects;
     for (var i = 0; i < objects.length; i++) {
-        this.addOpaque(objects[i]);
+        this.addOpaque(objects[i], rays);
     }
+
+    return rays;
 };
 
 /**
@@ -57,16 +57,16 @@ Light.prototype.computeRays = function () {
  * @method addOpaque
  * @method opaque {Opaque} An opaque object
  */
-Light.prototype.addOpaque = function (opaque) {
+Light.prototype.addOpaque = function (opaque, rays) {
     var p;
     var opaqueSegment = new LineSegment(opaque.p1, opaque.p2);
-    for (var i = 0; i < this.rays.length; i++) {
+    for (var i = 0; i < rays.data.length; i++) {
         // Check whether this new object intersects existing Rays
-        var lightSegment = new LineSegment(this.rays[i].p1, this.rays[i].p2);
+        var lightSegment = new LineSegment(rays.data[i].p1, rays.data[i].p2);
         p = lightSegment.intersection(opaqueSegment);
         if (p !== null) {
             // Since this object is opaque the Ray won't go through the object
-            this.rays[i].p2 = p;
+            rays.data[i].p2 = p;
         }
     }
 
@@ -76,10 +76,10 @@ Light.prototype.addOpaque = function (opaque) {
 
     var order = vp1.crossProduct(vp2);
 
-    if (!this.contains(opaque.p1))
+    if (!rays.contains(opaque.p1))
         vp1 = null;
 
-    if (!this.contains(opaque.p2))
+    if (!rays.contains(opaque.p2))
         vp2 = null;
 
     if (vp1) {
@@ -88,7 +88,7 @@ Light.prototype.addOpaque = function (opaque) {
         if (order > 0)
             rp1.orientation = -1;
 
-        this.insertRay(rp1);
+        rays.insert(rp1);
     }
 
     if (vp2) {
@@ -97,7 +97,7 @@ Light.prototype.addOpaque = function (opaque) {
         if (order < 0)
             rp2.orientation = -1;
 
-        this.insertRay(rp2);
+        rays.insert(rp2);
     }
 };
 
@@ -146,67 +146,4 @@ Light.prototype._createFiniteRay = function (point, vector) {
         if (r > 0)
             return new Ray(point, {x: point.x + vector.x*r, y: point.y + vector.y*r});
     }
-};
-
-/**
- * Add a Ray to the collection in the correct order
- *
- * @method insertRay
- * @param ray {Ray} The Ray to add
- */
-Light.prototype.insertRay = function (ray) {
-    for (var i = 0; i < this.rays.length; i++) {
-        var cp = this.rays[i].toVector().crossProduct(ray.toVector());
-        if (cp < 0) {
-            this.rays.splice(i, 0, ray);
-            break;
-        }
-    }
-};
-
-/**
- * Whether a point is inside the region illuminated by the Light
- *
- * @method contains
- * @param p {Object} The point to be checked
- * @return {Boolean} Whether the point is being illuminated
- */
-Light.prototype.contains = function (p) {
-    if (this.rays.length === 0)
-        return false;
-
-    var bb = {
-        "left": Math.min(this.rays[0].p1.x, this.rays[0].p2.x),
-        "right": Math.max(this.rays[0].p1.x, this.rays[0].p2.x),
-        "top": Math.min(this.rays[0].p1.y, this.rays[0].p2.y),
-        "bottom": Math.max(this.rays[0].p1.y, this.rays[0].p2.y)
-    };
-
-    for (var i = 1; i < this.rays.length; i++) {
-        bb.left = Math.min(bb.left, Math.min(this.rays[i].p1.x, this.rays[i].p2.x));
-        bb.right = Math.max(bb.right, Math.max(this.rays[i].p1.x, this.rays[i].p2.x));
-        bb.top  = Math.min(bb.top, Math.min(this.rays[i].p1.y, this.rays[i].p2.y));
-        bb.bottom = Math.max(bb.bottom, Math.max(this.rays[i].p1.y, this.rays[i].p2.y));
-    }
-
-    // Check whether the point is inside the bounding box
-    if (p.x < bb.left || p.x > bb.right || p.y < bb.top || p.y > bb.bottom)
-        return false;
-
-    // Ray casting
-    // Count the number of intersections to that point
-    // http://en.wikipedia.org/wiki/Point_in_polygon
-    var intersections = 0;
-    // A point outside the polygon
-    var pIni = {x: bb.left - 0.5, y: p.y};
-    var rayCast = new LineSegment(pIni, p);
-    for (var i = 0; i < this.rays.length; i++) {
-        if (this.rays[i].lineSegment().intersection(rayCast) !== null)
-            intersections++;
-    }
-
-    if (intersections % 2 === 0)
-        return false;
-
-    return true;
 };

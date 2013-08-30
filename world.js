@@ -37,11 +37,11 @@ World.prototype.addObject = function (object) {
 World.prototype.fetchRays = function (light) {
 };
 
-World.prototype.paint = function (context) {
+World.prototype.paint = function (context, rays) {
     var i;
 
     for (i = 0; i < this._lights.length; i++) {
-        this._lights[i].paint(context);
+        this._lights[i].paint(context, rays[i]);
     }
 
     for (i = 0; i < this._objects.length; i++) {
