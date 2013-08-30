@@ -11,6 +11,57 @@ var Opaque = function (p1, p2) {
 };
 
 /**
+ * Add a opaque object to compute the rays
+ *
+ * @method computeRays
+ * @method light {Light} A light source
+ * @method rays {RayCollection} Collection of rays to be processed
+ */
+Opaque.prototype.computeRays = function (light, rays) {
+    var p;
+    var opaqueSegment = new LineSegment(this.p1, this.p2);
+    for (var i = 0; i < rays.data.length; i++) {
+        // Check whether this new object intersects existing Rays
+        var lightSegment = new LineSegment(rays.data[i].p1, rays.data[i].p2);
+        p = lightSegment.intersection(opaqueSegment);
+        if (p !== null) {
+            // Since this object is opaque the Ray won't go through the object
+            rays.data[i].p2 = p;
+        }
+    }
+
+    // Create a vector that goes from the source of light to the edges of the object
+    var vp1 = (new LineSegment(light.pos, this.p1)).toVector();
+    var vp2 = (new LineSegment(light.pos, this.p2)).toVector();
+
+    var order = vp1.crossProduct(vp2);
+
+    if (!rays.contains(this.p1))
+        vp1 = null;
+
+    if (!rays.contains(this.p2))
+        vp2 = null;
+
+    if (vp1) {
+        var rp1 = light.world.createFiniteRay(this.p1, vp1);
+
+        if (order > 0)
+            rp1.orientation = -1;
+
+        rays.insert(rp1);
+    }
+
+    if (vp2) {
+        var rp2 = light.world.createFiniteRay(this.p2, vp2);
+
+        if (order < 0)
+            rp2.orientation = -1;
+
+        rays.insert(rp2);
+    }
+};
+
+/**
  * Paint the object to a context
  *
  * @method paint
