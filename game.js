@@ -28,7 +28,7 @@ var l = world.createLightSource(
     "yellow"
 );
 
-var o = new Opaque(
+var o = new Mirror(
     {x: 250, y: 80},
     {x: 250, y: 120}
 );
