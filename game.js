@@ -45,10 +45,12 @@ world.addObject(o);
 world.addObject(o2);
 
 var paint = function () {
-    var rays = l.computeRays();
-    world.paint(context, [rays]);
+    var rays = world.computeRays(l);
+    world.paint(context, rays);
 
-    paintrays(rays.data);
+    for (var i = 0; i < rays.length; i++) {
+        paintrays(rays[i].data);
+    }
 };
 
 var paintvector = function (v) {

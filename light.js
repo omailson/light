@@ -33,23 +33,3 @@ Light.prototype.paint = function (context, rays) {
     }
     context.fill();
 };
-
-/**
- * Recalculate the collection of rays. It looks for the objects in the world
- *
- * @method computeRays
- * @return {RayCollection}
- */
-Light.prototype.computeRays = function () {
-    var startRay = new Ray(this.pos, this.points[0]);
-    var endRay = new Ray(this.pos, this.points[1]);
-    endRay.orientation = -1;
-    var rays = new RayCollection(startRay, endRay);
-
-    var objects = this.world._objects;
-    for (var i = 0; i < objects.length; i++) {
-        objects[i].computeRays(this, rays);
-    }
-
-    return rays;
-};

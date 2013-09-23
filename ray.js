@@ -58,6 +58,8 @@ Ray.prototype.intersectionPoint = function (lineSegment) {
     var r = qp.crossProduct(lineSegment.toVector())/vxu;
     if (r > 0)
         return {x: this.p1.x + this.vector.x*r, y: this.p1.y + this.vector.y*r};
+
+    return null;
 };
 
 /**

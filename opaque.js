@@ -14,8 +14,8 @@ var Opaque = function (p1, p2) {
  * Add a opaque object to compute the rays
  *
  * @method computeRays
- * @method light {Light} A light source
- * @method rays {RayCollection} Collection of rays to be processed
+ * @param light {Light} A light source
+ * @param rays {RayCollection} Collection of rays to be processed
  */
 Opaque.prototype.computeRays = function (light, rays) {
     var p;

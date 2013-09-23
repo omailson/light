@@ -11,10 +11,15 @@ var Mirror = function (p1, p2) {
 };
 
 /**
- *
+ * @method computeRays
+ * @param light {Light}
+ * @param rays {RayCollection}
+ * @return {Array} Array of generated RayCollection
  */
 Mirror.prototype.computeRays = function (light, rays) {
     var p;
+    var reflectedRays = [];
+
     var opaqueSegment = new LineSegment(this.p1, this.p2);
     for (var i = 0; i < rays.data.length; i++) {
         // Check whether this new object intersects existing Rays
@@ -23,6 +28,10 @@ Mirror.prototype.computeRays = function (light, rays) {
         if (p !== null) {
             // Since a mirror is also opaque the Ray won't go through the object
             rays.data[i].p2 = p;
+
+            var reflectedVector = Vector2D.reflect(rays.data[i].toVector(), opaqueSegment.toVector());
+            var newRay = new Ray(p, reflectedVector);
+            reflectedRays.push(newRay);
         }
     }
 
@@ -38,7 +47,6 @@ Mirror.prototype.computeRays = function (light, rays) {
     if (!rays.contains(this.p2))
         vp2 = null;
 
-    var reflectedRays = [];
     if (vp1) {
         var rp1 = new Ray(this.p1, vp1);
 
@@ -66,8 +74,13 @@ Mirror.prototype.computeRays = function (light, rays) {
             rp2r.orientation = -1;
         reflectedRays.push(rp2r);
     }
-    // XXX
-    paintrays(reflectedRays);
+
+    var rayCollections = [];
+    for (var i = 0; i < reflectedRays.length; i = i + 2) {
+        rayCollections.push(new RayCollection(reflectedRays[i], reflectedRays[i + 1]));
+    }
+
+    return rayCollections;
 };
 
 /**
