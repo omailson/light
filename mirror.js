@@ -19,7 +19,7 @@ Mirror.prototype.computeRays = function (light, rays) {
     for (var i = 0; i < rays.data.length; i++) {
         // Check whether this new object intersects existing Rays
         var lightSegment = rays.data[i].lineSegment();
-        p = lightSegment.intersection(opaqueSegment);
+        p = rays.data[i].intersectionPoint(opaqueSegment);
         if (p !== null) {
             // Since a mirror is also opaque the Ray won't go through the object
             rays.data[i].p2 = p;
@@ -40,35 +40,31 @@ Mirror.prototype.computeRays = function (light, rays) {
 
     var reflectedRays = [];
     if (vp1) {
-        var rp1 = light.world.createFiniteRay(this.p1, vp1);
+        var rp1 = new Ray(this.p1, vp1);
 
         if (order > 0)
             rp1.orientation = -1;
 
         rays.insert(rp1);
-        // var rp1Index = this.insertRay(rp1);
         var vp1r = Vector2D.reflect(vp1, opaqueSegment.toVector());
-        var rp1r = light.world.createFiniteRay(this.p1, vp1r);
+        var rp1r = new Ray(this.p1, vp1r);
         if (order > 0)
             rp1r.orientation = -1;
         reflectedRays.push(rp1r);
-        // this.rays.splice(rp1Index + 1, 0, rp1r);
     }
 
     if (vp2) {
-        var rp2 = light.world.createFiniteRay(this.p2, vp2);
+        var rp2 = new Ray(this.p2, vp2);
 
         if (order < 0)
             rp2.orientation = -1;
 
         rays.insert(rp2);
-        // var rp2Index = this.insertRay(rp2);
         var vp2r = Vector2D.reflect(vp2, opaqueSegment.toVector());
-        var rp2r = light.world.createFiniteRay(this.p2, vp2r);
+        var rp2r = new Ray(this.p2, vp2r);
         if (order < 0)
             rp2r.orientation = -1;
         reflectedRays.push(rp2r);
-        // this.rays.splice(rp2Index, 0, rp2r);
     }
     // XXX
     paintrays(reflectedRays);

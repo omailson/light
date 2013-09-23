@@ -25,6 +25,9 @@ Light.prototype.paint = function (context, rays) {
     context.beginPath();
     context.moveTo(this.pos.x, this.pos.y);
     for (var i = 0; i < rays.data.length; i++) {
+        if (!rays.data[i].isFinite()) // XXX
+            rays.data[i].p2 = this.world.intersectionPoint(rays.data[i]);
+
         context.lineTo(rays.data[i].oriented().p1.x, rays.data[i].oriented().p1.y);
         context.lineTo(rays.data[i].oriented().p2.x, rays.data[i].oriented().p2.y);
     }
@@ -38,8 +41,8 @@ Light.prototype.paint = function (context, rays) {
  * @return {RayCollection}
  */
 Light.prototype.computeRays = function () {
-    var startRay = this.world.createFiniteRay(this.pos, Vector2D.fromPoints(this.pos, this.points[0]));
-    var endRay = this.world.createFiniteRay(this.pos, Vector2D.fromPoints(this.pos, this.points[1]));
+    var startRay = new Ray(this.pos, this.points[0]);
+    var endRay = new Ray(this.pos, this.points[1]);
     endRay.orientation = -1;
     var rays = new RayCollection(startRay, endRay);
 

@@ -49,17 +49,17 @@ RayCollection.prototype.contains = function (p) {
         return false;
 
     var bb = {
-        "left": Math.min(this.data[0].p1.x, this.data[0].p2.x),
-        "right": Math.max(this.data[0].p1.x, this.data[0].p2.x),
-        "top": Math.min(this.data[0].p1.y, this.data[0].p2.y),
-        "bottom": Math.max(this.data[0].p1.y, this.data[0].p2.y)
+        "left": this.data[0].left(),
+        "right": this.data[0].right(),
+        "top": this.data[0].top(),
+        "bottom": this.data[0].bottom()
     };
 
     for (var i = 1; i < this.data.length; i++) {
-        bb.left = Math.min(bb.left, Math.min(this.data[i].p1.x, this.data[i].p2.x));
-        bb.right = Math.max(bb.right, Math.max(this.data[i].p1.x, this.data[i].p2.x));
-        bb.top  = Math.min(bb.top, Math.min(this.data[i].p1.y, this.data[i].p2.y));
-        bb.bottom = Math.max(bb.bottom, Math.max(this.data[i].p1.y, this.data[i].p2.y));
+        bb.left = Math.min(bb.left, this.data[i].left());
+        bb.right = Math.max(bb.right, this.data[i].right());
+        bb.top  = Math.min(bb.top, this.data[i].top());
+        bb.bottom = Math.max(bb.bottom, this.data[i].bottom());
     }
 
     // Check whether the point is inside the bounding box
@@ -74,7 +74,7 @@ RayCollection.prototype.contains = function (p) {
     var pIni = {x: bb.left - 0.5, y: p.y};
     var rayCast = new LineSegment(pIni, p);
     for (var i = 0; i < this.data.length; i++) {
-        if (this.data[i].lineSegment().intersection(rayCast) !== null)
+        if (this.data[i].intersectionPoint(rayCast) !== null)
             intersections++;
     }
 

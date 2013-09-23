@@ -83,6 +83,26 @@ World.prototype.createFiniteRay = function (point, vector) {
     }
 };
 
+// XXX
+World.prototype.intersectionPoint = function (ray) {
+    var w = this._bounds.width;
+    var h = this._bounds.height;
+
+    var segments = [];
+    segments[0] = new LineSegment({x: 0, y: 0}, {x: w, y: 0});
+    segments[1] = new LineSegment({x: w, y: 0}, {x: w, y: h});
+    segments[2] = new LineSegment({x: w, y: h}, {x: 0, y: h});
+    segments[3] = new LineSegment({x: 0, y: h}, {x: 0, y: 0});
+
+    for (var i = 0; i < segments.length; i++) {
+        var p = ray.intersectionPoint(segments[i]);
+        if (p)
+            return p;
+    }
+
+    return null;
+};
+
 World.prototype.paint = function (context, rays) {
     var i;
 

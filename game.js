@@ -10,6 +10,9 @@ var paintrays = function (rays) {
         else
             context.strokeStyle = "red";
 
+        if (!rays[i].isFinite()) // XXX
+            rays[i].p2 = world.intersectionPoint(rays[i]);
+
         context.moveTo(rays[i].p1.x, rays[i].p1.y);
         context.lineTo(rays[i].p2.x, rays[i].p2.y);
         context.stroke();
