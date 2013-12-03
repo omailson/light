@@ -19,8 +19,10 @@
         <script src="js/core/gameworld.js"></script>
         <script src="js/core/worldbuilder.js"></script>
         <script src="js/core/entities/opaqueentity.js"></script>
+        <script src="js/core/entities/mirrorentity.js"></script>
 
         <script src="js/ui/sprites/opaquesprite.js"></script>
+        <script src="js/ui/sprites/mirrorsprite.js"></script>
         <script src="js/ui/scene.js"></script>
         <script src="js/ui/scenebuilder.js"></script>
         <script src="js/ui/game.js"></script>
@@ -30,6 +32,7 @@
             var gameFactory = new GameFactory();
             var levelData = {
                 sprites: [
+                    {type: "mirror", p1: {x: 250, y: 80}, p2: {x: 250, y: 120}},
                     {type: "opaque", p1: {x: 250, y: 40}, p2: {x: 250, y: 70}}
                 ]
             };

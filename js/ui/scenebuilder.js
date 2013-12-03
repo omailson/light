@@ -14,3 +14,11 @@ SceneBuilder.prototype.buildOpaqueSprite = function (data) {
 
     return opaque;
 };
+
+SceneBuilder.prototype.buildMirrorSprite = function (data) {
+    var mirror = new MirrorSprite();
+    mirror.readData(data, this._worldBuilder);
+    this._scene.addSprite(mirror);
+
+    return mirror;
+};

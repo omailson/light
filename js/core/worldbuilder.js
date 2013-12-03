@@ -12,3 +12,10 @@ WorldBuilder.prototype.buildOpaqueEntity = function (params) {
     this._world.addEntity(opaque);
     return opaque;
 };
+
+WorldBuilder.prototype.buildMirrorEntity = function (params) {
+    var mirror = new MirrorEntity(params);
+    mirror.initPhysics(this._world.physicsWorld());
+    this._world.addEntity(mirror);
+    return mirror;
+};
