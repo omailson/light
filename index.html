@@ -15,10 +15,26 @@
         <script src="js/physics/ray.js"></script>
         <script src="js/physics/light.js"></script>
         <script src="js/physics/world.js"></script>
-        <script src="game.js"></script>
+
+        <script src="js/core/gameworld.js"></script>
+        <script src="js/core/worldbuilder.js"></script>
+        <script src="js/core/entities/opaqueentity.js"></script>
+
+        <script src="js/ui/sprites/opaquesprite.js"></script>
+        <script src="js/ui/scene.js"></script>
+        <script src="js/ui/scenebuilder.js"></script>
+        <script src="js/ui/game.js"></script>
+        <script src="js/ui/gamefactory.js"></script>
 
         <script type="text/javascript">
-            paint();
+            var gameFactory = new GameFactory();
+            var levelData = {
+                sprites: [
+                    {type: "opaque", p1: {x: 250, y: 40}, p2: {x: 250, y: 70}}
+                ]
+            };
+            var game = gameFactory.create(document.getElementById("canvas"), levelData);
+            game.paint();
         </script>
     </body>
 </html>
