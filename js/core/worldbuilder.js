@@ -19,3 +19,10 @@ WorldBuilder.prototype.buildMirrorEntity = function (params) {
     this._world.addEntity(mirror);
     return mirror;
 };
+
+WorldBuilder.prototype.buildLightEntity = function (params) {
+    var light = new LightEntity(params);
+    light.initPhysics(this._world.physicsWorld());
+    this._world.addLight(light);
+    return light;
+};

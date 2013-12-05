@@ -7,6 +7,10 @@ var Game = function (world, scene, context) {
 Game.prototype.init = function () {
 };
 
+Game.prototype.update = function (delta) {
+    this._gameWorld.update(delta);
+};
+
 Game.prototype.paint = function () {
-    this._scene.paint(this._context);
+    this._scene.paint(this._context, this._gameWorld.rays());
 };
