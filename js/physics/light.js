@@ -12,6 +12,7 @@ var Light = function (pos, points, color) {
     this.pos = pos;
     this.color = color;
     this.points = points;
+    this.rays = [];
 };
 
 /**

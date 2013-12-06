@@ -19,9 +19,9 @@ Scene.prototype.addSprite = function (sprite) {
     this._sprites.push(sprite);
 };
 
-Scene.prototype.paint = function (context, rays) {
+Scene.prototype.paint = function (context) {
     for (var i = 0; i < this._lights.length; i++) {
-        this._lights[i].paint(context, rays[i].rays);
+        this._lights[i].paint(context);
     }
 
     for (var i = 0; i < this._sprites.length; i++) {

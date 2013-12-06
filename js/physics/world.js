@@ -34,6 +34,12 @@ World.prototype.addObject = function (object) {
     this._objects.push(object);
 };
 
+World.prototype.step = function () {
+    for (var i = 0; i < this._lights.length; i++) {
+        this._lights[i].rays = this.computeRays(this._lights[i]);
+    }
+};
+
 World.prototype.fetchRays = function (light) {
 };
 
@@ -104,6 +110,7 @@ World.prototype.intersectionPoint = function (ray) {
 };
 
 World.prototype.computeRays = function (light) {
+    // TODO: Light should receive 2 Rays in the ctor (nothing more)
     var startRay = new Ray(light.pos, light.points[0]);
     var endRay = new Ray(light.pos, light.points[1]);
     endRay.orientation = -1;
