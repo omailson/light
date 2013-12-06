@@ -14,10 +14,13 @@ LightSprite.prototype.paint = function (context, rays) {
 
 LightSprite.prototype.draw = function (context) {
     var rays = this.entity.rays();
+    context.save();
     context.fillStyle = this.color;
-    context.beginPath();
-    context.moveTo(this.pos.x, this.pos.y);
     for (var i = 0; i < rays.length; i++) {
+        context.beginPath();
+        if (!rays[i].data[0].isFinite()) // XXX
+            rays[i].data[0].p2 = this.entity.body.world.intersectionPoint(rays[i].data[0]);
+        context.moveTo(rays[i].data[0].oriented().p1.x, rays[i].data[0].oriented().p1.y);
         for (var j = 0; j < rays[i].data.length; j++) {
             if (!rays[i].data[j].isFinite()) // XXX
                 rays[i].data[j].p2 = this.entity.body.world.intersectionPoint(rays[i].data[j]);
@@ -25,8 +28,9 @@ LightSprite.prototype.draw = function (context) {
             context.lineTo(rays[i].data[j].oriented().p1.x, rays[i].data[j].oriented().p1.y);
             context.lineTo(rays[i].data[j].oriented().p2.x, rays[i].data[j].oriented().p2.y);
         }
+        context.fill();
     }
-    context.fill();
+    context.restore();
 };
 
 LightSprite.prototype.readData = function (data, builder) {
