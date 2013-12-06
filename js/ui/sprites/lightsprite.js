@@ -13,10 +13,15 @@ LightSprite.prototype.paint = function (context, rays) {
 };
 
 LightSprite.prototype.draw = function (context) {
+    var opacity = 1;
     var rays = this.entity.rays();
     context.save();
+    var size = 20;
+    context.rect(this.pos.x - size/2 + 0.5, this.pos.y - size/2 + 0.5, size, size);
+    context.stroke();
     context.fillStyle = this.color;
-    for (var i = 0; i < rays.length; i++) {
+    for (var i = 0; i < rays.length; i++, opacity -= 0.2) {
+        context.globalAlpha = opacity;
         context.beginPath();
         if (!rays[i].data[0].isFinite()) // XXX
             rays[i].data[0].p2 = this.entity.body.world.intersectionPoint(rays[i].data[0]);
