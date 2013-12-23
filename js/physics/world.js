@@ -110,8 +110,8 @@ World.prototype.intersectionPoint = function (ray) {
 };
 
 World.prototype.computeRays = function (light) {
-    var startRay = light.startRay;
-    var endRay = light.endRay;
+    var startRay = light.startRay();
+    var endRay = light.endRay();
     endRay.orientation = -1;
     var rays = [new RayCollection(startRay, endRay)];
 
