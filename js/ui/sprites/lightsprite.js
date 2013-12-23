@@ -89,12 +89,12 @@ LightSprite.prototype._intersectionPoint = function (ray, bounds) {
 
 LightSprite.prototype.readData = function (data, builder) {
     var params = {
-        pos: data.pos,
-        points: data.points
+        startRay: new Ray(data.rays[0].p1, new Vector2D(data.rays[0].vector.x, data.rays[0].vector.y)),
+        endRay: new Ray(data.rays[1].p1, new Vector2D(data.rays[1].vector.x, data.rays[1].vector.y))
     };
 
-    this.pos = params.pos;
-    this.points = params.points;
-    this.color = data.color;
     this.entity = builder.buildLightEntity(params, builder);
+
+    this.pos = this.entity.pos();
+    this.color = data.color;
 };

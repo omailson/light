@@ -2,11 +2,14 @@
  * This class represents a source of light
  *
  * @class Light
- * @param pos {Object} Source position
- * @param points {Array} An array of two points. They are the initial points of the light
+ * @param startRay {Ray} A Ray limiting the Light bean
+ * @param endRay {Ray} Another Ray limiting the Light bean
  */
-var Light = function (pos, points) {
-    this.pos = pos;
-    this.points = points;
+var Light = function (startRay, endRay) {
+    this.startRay = startRay;
+    this.endRay = endRay;
     this.rays = [];
+
+    // XXX
+    this.pos = startRay.commonSource(endRay);
 };

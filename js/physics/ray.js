@@ -63,6 +63,25 @@ Ray.prototype.intersectionPoint = function (lineSegment) {
 };
 
 /**
+ * The intersection point between this ray and a given ray.
+ * The point may be outside both rays.
+ *
+ * @method commonSource
+ * @param ray {Ray} the other ray to compute the intersection
+ * @return {Object} A (x,y) object with the intersection point or null if not applicable (rays in parallel)
+ */
+Ray.prototype.commonSource = function (ray) {
+    var vxu = this.vector.crossProduct(ray.vector);
+    if (vxu === 0) // parallel
+        return null;
+
+    var pq = Vector2D.fromPoints(this.p1, ray.p1);
+    var t = pq.crossProduct(ray.vector) / vxu;
+
+    return {x: this.p1.x + this.vector.x * t, y: this.p1.y + this.vector.y * t};
+};
+
+/**
  * Returns a vector representation of the Ray
  *
  * @method toVector

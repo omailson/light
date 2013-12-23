@@ -22,8 +22,8 @@ World.prototype.setBounds = function (bounds) {
     this._bounds = bounds;
 };
 
-World.prototype.createLightSource = function (source, startPoints, color) {
-    var light = new Light(source, startPoints, color);
+World.prototype.createLightSource = function (startRay, endRay) {
+    var light = new Light(startRay, endRay);
     light.world = this;
     this._lights.push(light);
 
@@ -110,9 +110,8 @@ World.prototype.intersectionPoint = function (ray) {
 };
 
 World.prototype.computeRays = function (light) {
-    // TODO: Light should receive 2 Rays in the ctor (nothing more)
-    var startRay = new Ray(light.pos, light.points[0]);
-    var endRay = new Ray(light.pos, light.points[1]);
+    var startRay = light.startRay;
+    var endRay = light.endRay;
     endRay.orientation = -1;
     var rays = [new RayCollection(startRay, endRay)];
 
