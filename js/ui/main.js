@@ -1,7 +1,21 @@
+/**
+ * The main class of the game
+ *
+ * @class Main
+ * @constructor
+ */
 var Main = function () {
+    this._game = null;
+    this._timestamp = 0;
 };
 
-Main.prototype.run = function () {
+/**
+ * Initilization
+ *
+ * @method _init
+ * @private
+ */
+Main.prototype._init = function () {
     var gameFactory = new GameFactory();
     var levelData = {
         sprites: [
@@ -10,7 +24,64 @@ Main.prototype.run = function () {
             {type: "opaque", p1: {x: 250, y: 40}, p2: {x: 250, y: 70}}
         ]
     };
-    var game = gameFactory.create(document.getElementById("canvas"), levelData);
-    game.update(0);
-    game.paint();
+
+    this._game = gameFactory.create(document.getElementById("canvas"), levelData);
+};
+
+/**
+ * First tick of the game
+ *
+ * See _requestFrame
+ *
+ * @method _firstTick
+ * @param timestamp {Number} Current (and first) timestamp
+ * @private
+ */
+Main.prototype._firstTick = function (timestamp) {
+    this._timestamp = timestamp;
+    this._requestFrame();
+};
+
+/**
+ * Game tick. Called at every frame update.
+ *
+ * See _requestFrame
+ *
+ * @method _tick
+ * @param timestamp {Number} current timestamp
+ * @private
+ */
+Main.prototype._tick = function (timestamp) {
+    var delta = timestamp - this._timestamp;
+    this._timestamp = timestamp;
+
+    this._game.update(delta);
+    this._game.paint();
+
+    this._requestFrame();
+};
+
+/**
+ * Request the next frame
+ *
+ * This is kind of a wrapper to requestAnimationFrame
+ *
+ * @method _requestFrame
+ * @private
+ */
+Main.prototype._requestFrame = function () {
+    if (this._timestamp === 0)
+        requestAnimationFrame(this._firstTick.bind(this));
+    else
+        requestAnimationFrame(this._tick.bind(this));
+};
+
+/**
+ * Run the game
+ *
+ * @method run
+ */
+Main.prototype.run = function () {
+    this._init();
+    this._requestFrame();
 };
