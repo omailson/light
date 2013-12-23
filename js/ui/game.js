@@ -9,6 +9,7 @@ Game.prototype.init = function () {
 
 Game.prototype.update = function (delta) {
     this._gameWorld.update(delta);
+    this._scene.update(delta);
 };
 
 Game.prototype.paint = function () {

@@ -19,6 +19,13 @@ Scene.prototype.addSprite = function (sprite) {
     this._sprites.push(sprite);
 };
 
+Scene.prototype.update = function (delta) {
+    var bounds = {x: 0, y: 0, width: this.width, height: this.height};
+    for (var i = 0; i < this._lights.length; i++) {
+        this._lights[i].computeDrawPoints(bounds);
+    }
+};
+
 Scene.prototype.paint = function (context) {
     for (var i = 0; i < this._lights.length; i++) {
         this._lights[i].paint(context);
