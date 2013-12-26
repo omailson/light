@@ -4,6 +4,6 @@ var MirrorEntity = function (params) {
 };
 
 MirrorEntity.prototype.initPhysics = function (physicsWorld) {
-    var mirror = new Mirror(this.p1, this.p2);
-    physicsWorld.addObject(mirror);
+    this.body = new Mirror(this.p1, this.p2);
+    physicsWorld.addObject(this.body);
 };

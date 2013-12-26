@@ -4,6 +4,6 @@ var OpaqueEntity = function (params) {
 };
 
 OpaqueEntity.prototype.initPhysics = function (physicsWorld) {
-    var opaque = new Opaque(this.p1, this.p2);
-    physicsWorld.addObject(opaque);
+    this.body = new Opaque(this.p1, this.p2);
+    physicsWorld.addObject(this.body);
 };
