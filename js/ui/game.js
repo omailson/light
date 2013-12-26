@@ -13,5 +13,6 @@ Game.prototype.update = function (delta) {
 };
 
 Game.prototype.paint = function () {
+    this._context.canvas.width = this._context.canvas.width;
     this._scene.paint(this._context);
 };
