@@ -15,20 +15,20 @@ var Light = function (startRay, endRay) {
  * The first ray of light
  *
  * @method startRay
- * @return {Ray}
+ * @return {Ray} a copy of said Ray
  */
 Light.prototype.startRay = function () {
-    return this._startRay;
+    return this._startRay.clone();
 };
 
 /**
  * The last ray of light
  *
  * @method endRay
- * @return {Ray}
+ * @return {Ray} a copy of said Ray
  */
 Light.prototype.endRay = function () {
-    return this._endRay;
+    return this._endRay.clone();
 };
 
 /**

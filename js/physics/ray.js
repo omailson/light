@@ -21,6 +21,17 @@ var Ray = function (p1, p2, orientation) {
 };
 
 /**
+ * Returns a copy of the current Ray
+ *
+ * @method clone
+ * @return {Ray}
+ */
+Ray.prototype.clone = function () {
+    var ray = new Ray(this.p1, this.p2 === null ? this.vector : this.p2, this.orientation);
+    return ray;
+};
+
+/**
  * Whether the Ray is finite
  *
  * @method isFinite
