@@ -5,6 +5,9 @@ var OpaqueSprite = function () {
 };
 
 OpaqueSprite.prototype.update = function (delta) {
+    this.entity.update(delta);
+    this.p1 = this.entity.p1;
+    this.p2 = this.entity.p2;
 };
 
 OpaqueSprite.prototype.paint = function (context) {
