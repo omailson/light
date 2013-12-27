@@ -24,6 +24,10 @@ Scene.prototype.update = function (delta) {
     for (var i = 0; i < this._lights.length; i++) {
         this._lights[i].computeDrawPoints(bounds);
     }
+
+    for (var i = 0; i < this._sprites.length; i++) {
+        this._sprites[i].update(delta);
+    }
 };
 
 Scene.prototype.paint = function (context) {
