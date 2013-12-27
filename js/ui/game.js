@@ -7,6 +7,16 @@ var Game = function (world, scene, context) {
 Game.prototype.init = function () {
 };
 
+/**
+ * Deliver an input event to the game
+ *
+ * @method addInput
+ * @param e {InputEvent} input event
+ */
+Game.prototype.addInput = function (e) {
+    this._gameWorld.addInput(e);
+};
+
 Game.prototype.update = function (delta) {
     this._gameWorld.update(delta);
     this._scene.update(delta);

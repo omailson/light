@@ -4,6 +4,8 @@ var LightEntity = function (params) {
     this._endRay = params.endRay;
 };
 
+inherits(LightEntity, InteractiveEntity);
+
 LightEntity.prototype.rays = function () {
     return this.body.rays;
 };

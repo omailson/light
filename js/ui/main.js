@@ -46,7 +46,7 @@ Main.prototype._initInputListener = function (body, element) {
 };
 
 Main.prototype._onInputEvent = function (e) {
-    // TODO
+    this._game.addInput(e);
 };
 
 /**
