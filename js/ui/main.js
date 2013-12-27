@@ -26,6 +26,27 @@ Main.prototype._init = function () {
     };
 
     this._game = gameFactory.create(document.getElementById("canvas"), levelData);
+
+    this._initInputListener(document.body, document.getElementById("canvas"));
+};
+
+/**
+ * Initializes the input listener
+ *
+ * @method _initInputListener
+ * @param body {HTMLElement} The body elemtn
+ * @param element {HTMLElement} The canvas element
+ * @private
+ */
+Main.prototype._initInputListener = function (body, element) {
+    this._inputListener = new InputListener(body, element);
+    this._inputListener.pressed = this._onInputEvent.bind(this);
+    this._inputListener.moved = this._onInputEvent.bind(this);
+    this._inputListener.released = this._onInputEvent.bind(this);
+};
+
+Main.prototype._onInputEvent = function (e) {
+    // TODO
 };
 
 /**

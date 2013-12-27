@@ -1,0 +1,3 @@
+[submodule "js/externals/touchy"]
+	path = js/externals/touchy
+	url = git://github.com/figueredo/Touchy.js.git
