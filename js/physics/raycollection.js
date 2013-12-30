@@ -85,10 +85,46 @@ RayCollection.prototype.contains = function (p) {
     for (var i = 0; i < this.data.length; i++) {
         if (this.data[i].intersectionPoint(rayCast) !== null)
             intersections++;
+
+        // Check not only the rays but also the adjacency segments between to rays
+        var adjacencySegment = this._adjacencySegment(i);
+        if (adjacencySegment && adjacencySegment.intersection(rayCast))
+            intersections++;
     }
 
     if (intersections % 2 === 0)
         return false;
 
     return true;
+};
+
+/**
+ * Returns the adjacency segment between the ray given by index and the ray
+ * after that
+ *
+ * @method _adjacencySegment
+ * @param index {Number} the Ray index in the data array
+ * @private
+ * @return {LineSegment}
+ */
+RayCollection.prototype._adjacencySegment = function (index) {
+    var r1 = this.data[index];
+    var r2 = this.data[(index + 1) % this.data.length];
+
+    var p1 = null;
+    var p2 = null;
+    if (r1.orientation === 1 && r1.isFinite())
+        p1 = r1.p2;
+    else if (r1.orientation === -1)
+        p1 = r1.p1;
+
+    if (r2.orientation === -1 && r2.isFinite())
+        p2 = r2.p2;
+    else if (r2.orientation === 1)
+        p2 = r2.p1;
+
+    if (p1 === null || p2 === null)
+        return null;
+
+    return new LineSegment(p1, p2);
 };
