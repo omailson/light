@@ -16,6 +16,15 @@ var RayCollection = function (startRay, endRay) {
      */
     this.data = [];
 
+    /**
+     * The physics body that generated this RayCollection
+     *
+     * @property parentBody
+     * @type Body
+     * @public
+     */
+    this.parentBody = null;
+
     this.data.push(startRay);
     this.data.push(endRay);
 };
