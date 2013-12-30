@@ -89,7 +89,15 @@ RayCollection.prototype.contains = function (p) {
     // http://en.wikipedia.org/wiki/Point_in_polygon
     var intersections = 0;
     // A point outside the polygon
-    var pIni = {x: bb.left - 0.5, y: p.y};
+    var pIni;
+    if (bb.left > Number.NEGATIVE_INFINITY)
+        pIni = {x: bb.left - 0.5, y: p.y};
+    else if (bb.top > Number.NEGATIVE_INFINITY)
+        pIni = {x: p.x, y: bb.top - 0.5};
+    else if (bb.right < Number.POSITIVE_INFINITY)
+        pIni = {x: bb.right + 0.5, y: p.y};
+    else
+        pIni = {x: p.x, y: bb.bottom + 0.5};
     var rayCast = new LineSegment(pIni, p);
     for (var i = 0; i < this.data.length; i++) {
         if (this.data[i].intersectionPoint(rayCast) !== null)
