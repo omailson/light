@@ -40,8 +40,8 @@ Mirror.prototype.computeRays = function (light, rays) {
     }
 
     // Create a vector that goes from the source of light to the edges of the object
-    var vp1 = (new LineSegment(light.pos, this.p1)).toVector();
-    var vp2 = (new LineSegment(light.pos, this.p2)).toVector();
+    var vp1 = (new LineSegment(rays.lightPos, this.p1)).toVector();
+    var vp2 = (new LineSegment(rays.lightPos, this.p2)).toVector();
 
     var order = vp1.crossProduct(vp2);
 

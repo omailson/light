@@ -25,6 +25,15 @@ var RayCollection = function (startRay, endRay) {
      */
     this.parentBody = null;
 
+    /**
+     * The position of the virtual light source
+     *
+     * @property lightPos
+     * @type Object
+     * @public
+     */
+    this.lightPos = startRay.commonSource(endRay);
+
     this.data.push(startRay);
     this.data.push(endRay);
 };
