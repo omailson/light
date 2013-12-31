@@ -21,10 +21,10 @@ LineSegment.prototype.toVector = function () {
 };
 
 /**
- * Whether this line segment intersects another LineSegment
+ * The intersection of this segment with another line segment
  *
  * @param line {LineSegment} another line segment
- * @return {Boolean} whether the intersection happens
+ * @return {Object} the intersection point between them, or null if invalid
  */
 LineSegment.prototype.intersection = function (line) {
     var p1 = this.p1;
