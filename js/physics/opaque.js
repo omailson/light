@@ -20,6 +20,8 @@ Opaque.prototype.computeRays = function (rays) {
     var p;
     var opaqueSegment = new LineSegment(this.p1, this.p2);
     for (var i = 0; i < rays.data.length; i++) {
+        if (this._ownsRay(rays.data[i]))
+            continue;
         // Check whether this new object intersects existing Rays
         p = rays.data[i].intersectionPoint(opaqueSegment);
         if (p !== null) {
@@ -33,7 +35,9 @@ Opaque.prototype.computeRays = function (rays) {
                 i--;
         }
     }
+};
 
+Opaque.prototype.generateRays = function (rays) {
     // Create a vector that goes from the source of light to the edges of the object
     var vp1 = (new LineSegment(rays.lightPos, this.p1)).toVector();
     var vp2 = (new LineSegment(rays.lightPos, this.p2)).toVector();
@@ -63,6 +67,13 @@ Opaque.prototype.computeRays = function (rays) {
 
         rays.insert(rp2);
     }
+};
+
+Opaque.prototype._ownsRay = function (ray) {
+    var p1 = new Point(this.p1);
+    var p2 = new Point(this.p2);
+
+    return p1.equals(ray.p1) || p2.equals(ray.p1);
 };
 
 /**

@@ -118,6 +118,14 @@ World.prototype.computeRays = function (light) {
     for (var i = 0; i < rays.length; i++) {
         for (var j = 0; j < this._objects.length; j++) {
             if (this._objects[j] instanceof Opaque) {
+                this._objects[j].generateRays(rays[i]);
+            }
+        }
+    }
+
+    for (var i = 0; i < rays.length; i++) {
+        for (var j = 0; j < this._objects.length; j++) {
+            if (this._objects[j] instanceof Opaque) {
                 this._objects[j].computeRays(rays[i]);
             } else if (this._objects[j] instanceof Mirror) {
                 var newRays = this._objects[j].computeRays(rays[i]);
