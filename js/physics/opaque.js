@@ -14,10 +14,9 @@ var Opaque = function (p1, p2) {
  * Add a opaque object to compute the rays
  *
  * @method computeRays
- * @param light {Light} A light source
  * @param rays {RayCollection} Collection of rays to be processed
  */
-Opaque.prototype.computeRays = function (light, rays) {
+Opaque.prototype.computeRays = function (rays) {
     var p;
     var opaqueSegment = new LineSegment(this.p1, this.p2);
     for (var i = 0; i < rays.data.length; i++) {

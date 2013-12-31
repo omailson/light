@@ -118,9 +118,9 @@ World.prototype.computeRays = function (light) {
     for (var i = 0; i < rays.length; i++) {
         for (var j = 0; j < this._objects.length; j++) {
             if (this._objects[j] instanceof Opaque) {
-                this._objects[j].computeRays(light, rays[i]);
+                this._objects[j].computeRays(rays[i]);
             } else if (this._objects[j] instanceof Mirror) {
-                var newRays = this._objects[j].computeRays(light, rays[i]);
+                var newRays = this._objects[j].computeRays(rays[i]);
                 rays = rays.concat(newRays);
             }
         }
