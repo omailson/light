@@ -10,6 +10,12 @@ Debugger.prototype.scene = function () {
     return this.main._game._scene;
 };
 
+Debugger.prototype.paintRayCollection = function (rayCollection) {
+    for (var i = 0; i < rayCollection.data.length; i++) {
+        this.paintRay(rayCollection.data[i]);
+    }
+};
+
 Debugger.prototype.paintRay = function (ray) {
     var context = this.context();
     context.save();
