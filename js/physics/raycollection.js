@@ -56,6 +56,19 @@ RayCollection.prototype.insert = function (ray) {
 };
 
 /**
+ * Remove a Ray located at the given index
+ *
+ * @method remove
+ * @param index {Number} the index of the ray to be removed
+ * @return {Ray} the removed Ray, or null if invalid
+ */
+RayCollection.prototype.remove = function (index) {
+    var removedRays = this.data.splice(index, 1);
+
+    return removedRays.length > 0 ? removedRays[0] : null;
+};
+
+/**
  * Whether a point is inside the region illuminated by the Light
  *
  * @method contains
