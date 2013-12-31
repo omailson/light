@@ -7,6 +7,8 @@
 var Main = function () {
     this._game = null;
     this._timestamp = 0;
+    if (window.Debugger)
+        this.debug = new Debugger(this);
 };
 
 /**
