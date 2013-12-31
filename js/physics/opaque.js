@@ -25,6 +25,12 @@ Opaque.prototype.computeRays = function (rays) {
         if (p !== null) {
             // Since this object is opaque the Ray won't go through the object
             rays.data[i].p2 = p;
+        } else {
+            // Remove existing rays that are occluded by this object
+            var lightSegment = new LineSegment(rays.lightPos, rays.data[i].p1);
+            p = opaqueSegment.intersection(lightSegment);
+            if (p && rays.remove(i))
+                i--;
         }
     }
 

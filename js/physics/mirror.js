@@ -26,7 +26,6 @@ Mirror.prototype.computeRays = function (rays) {
     var opaqueSegment = new LineSegment(this.p1, this.p2);
     for (var i = 0; i < rays.data.length; i++) {
         // Check whether this new object intersects existing Rays
-        var lightSegment = rays.data[i].lineSegment();
         p = rays.data[i].intersectionPoint(opaqueSegment);
         if (p !== null) {
             // Since a mirror is also opaque the Ray won't go through the object
@@ -35,6 +34,12 @@ Mirror.prototype.computeRays = function (rays) {
             var reflectedVector = Vector2D.reflect(rays.data[i].toVector(), opaqueSegment.toVector());
             var newRay = new Ray(p, reflectedVector);
             reflectedRays.push(newRay);
+        } else {
+            // Remove existing rays that are occluded by this object
+            var lightSegment = new LineSegment(rays.lightPos, rays.data[i].p1);
+            p = opaqueSegment.intersection(lightSegment);
+            if (p && rays.remove(i))
+                i--;
         }
     }
 
