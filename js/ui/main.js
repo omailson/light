@@ -25,6 +25,7 @@ Main.prototype._init = function () {
         ]
     };
 
+    document.getElementById("paused").style.display = "none";
     this._game = gameFactory.create(document.getElementById("canvas"), levelData);
 
     this._initInputListener(document.body, document.getElementById("canvas"));
@@ -76,8 +77,10 @@ Main.prototype._tick = function (timestamp) {
     var delta = timestamp - this._timestamp;
     this._timestamp = timestamp;
 
-    this._game.update(delta);
-    this._game.paint();
+    if (!this._pause) {
+        this._game.update(delta);
+        this._game.paint();
+    }
 
     this._requestFrame();
 };
@@ -95,6 +98,26 @@ Main.prototype._requestFrame = function () {
         requestAnimationFrame(this._firstTick.bind(this));
     else
         requestAnimationFrame(this._tick.bind(this));
+};
+
+/**
+ * Pause game. Pass a boolean or nothing to toggle
+ *
+ * @method pause
+ * @param pause {Boolean} Whether the game should be paused or resumed. Leave it blank to toggle
+ */
+Main.prototype.pause = function (pause) {
+    if (arguments.length === 0)
+        pause = !this._pause;
+
+    if (this._pause === !!pause)
+        return;
+
+    this._pause = !!pause;
+    if (this._pause)
+        document.getElementById("paused").style.display = "";
+    else
+        document.getElementById("paused").style.display = "none";
 };
 
 /**
