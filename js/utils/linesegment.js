@@ -46,9 +46,10 @@ LineSegment.prototype.intersection = function (line) {
 
     var r = {x: p1.x + v.x*t, y: p1.y + v.y*t};
 
-    if (MathHelper.between(q1.x, r.x, q2.x) &&
-            MathHelper.between(q1.y, r.y, q2.y) &&
-            t >= 0 && t <= 1)
+    if (Fuzzy.between(q1.x, r.x, q2.x) &&
+            Fuzzy.between(q1.y, r.y, q2.y) &&
+            Fuzzy.gte(t, 0) &&
+            Fuzzy.lte(t, 1))
         return r;
 
     return null;

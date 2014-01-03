@@ -61,13 +61,13 @@ Ray.prototype.intersectionPoint = function (lineSegment) {
 
     var qp = Vector2D.fromPoints(lineSegment.p1, this.p1);
     var t = qp.crossProduct(this.vector)/vxu;
-    if (t < 0 || t > 1) // it's not intersecting the segment
+    if (Fuzzy.lt(t,0) || Fuzzy.gt(t, 1)) // it's not intersecting the segment
         return null;
 
     // The vector is intersecting the segment, but we need to check if the
     // intersection is before or after the given point.
     var r = qp.crossProduct(lineSegment.toVector())/vxu;
-    if (r > 0)
+    if (Fuzzy.gte(r, 0))
         return {x: this.p1.x + this.vector.x*r, y: this.p1.y + this.vector.y*r};
 
     return null;
