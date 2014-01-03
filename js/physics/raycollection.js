@@ -47,7 +47,7 @@ var RayCollection = function (startRay, endRay) {
  */
 RayCollection.prototype.insert = function (ray) {
     for (var i = 0; i < this.data.length; i++) {
-        var cp = this.data[i].toVector().crossProduct(ray.toVector());
+        var cp = RayCollection._compareFunction(ray, this.data[i]);
         if (cp < 0) {
             this.data.splice(i, 0, ray);
             return i;
@@ -149,4 +149,41 @@ RayCollection.prototype._adjacencySegment = function (index) {
         return null;
 
     return new LineSegment(p1, p2);
+};
+
+/**
+ * Compare two rays. If result < 0, then Ray a must come before Ray b.
+ *
+ * @method _compareFunction
+ * @param a {Ray}
+ * @param b {Ray}
+ * @return {Number} < 0 if a is lower than b. 0 if they are equal (or parallel)
+ * @private
+ * @static
+ */
+RayCollection._compareFunction = function (a, b) {
+    var cp = a.toVector().crossProduct(b.toVector());
+    return -cp;
+};
+
+/**
+ * Given an array of unordered Rays return a RayCollection
+ *
+ * The array must have at least 2 rays otherwise the function returns null
+ *
+ * @method fromArray
+ * @param rays {Array} an array of Ray
+ * @return {RayCollection}
+ * @static
+ */
+RayCollection.fromArray = function (rays) {
+    if (rays.length < 2)
+        return null;
+
+    rays.sort(RayCollection._compareFunction);
+
+    var rayCollection = new RayCollection(rays[0], rays[rays.length-1]);
+    rayCollection.data = rays;
+
+    return rayCollection;
 };
