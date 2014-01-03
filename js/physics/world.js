@@ -120,11 +120,18 @@ World.prototype.computeRays = function (light) {
             this._objects[j].generateRays(rays[i]);
         }
 
+        var collectionEmptied = false;
         for (var j = 0; j < this._objects.length; j++) {
             this._objects[j].computeRays(rays[i]);
+            // Remove RayCollection if all rays are occluded by this object
+            if (rays[i].data.length === 0) {
+                rays.splice(i, 1);
+                i--;
+                collectionEmptied = true;
+            }
         }
 
-        for (var j = 0; j < this._objects.length; j++) {
+        for (var j = 0; !collectionEmptied && j < this._objects.length; j++) {
             if (this._objects[j] instanceof Mirror) {
                 var newRays = this._objects[j].computeReflection(rays[i]);
                 if (newRays)
