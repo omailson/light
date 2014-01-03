@@ -127,7 +127,8 @@ World.prototype.computeRays = function (light) {
         for (var j = 0; j < this._objects.length; j++) {
             if (this._objects[j] instanceof Mirror) {
                 var newRays = this._objects[j].computeReflection(rays[i]);
-                rays = rays.concat(newRays);
+                if (newRays)
+                    rays.push(newRays);
             }
         }
     }
