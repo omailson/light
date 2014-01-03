@@ -29,7 +29,10 @@ Opaque.prototype.computeRays = function (rays) {
             rays.data[i].p2 = p;
         } else {
             // Remove existing rays that are occluded by this object
-            var lightSegment = new LineSegment(rays.lightPos, rays.data[i].p1);
+            var lightBeanSegment = new LineSegment(rays.data[0].p1, rays.data[rays.data.length-1].p1);
+            var raySegment = new LineSegment(rays.lightPos, rays.data[i].p1);
+            var lightBeanIntersection = raySegment.intersection(lightBeanSegment);
+            var lightSegment = new LineSegment(lightBeanIntersection, rays.data[i].p1);
             p = opaqueSegment.intersection(lightSegment);
             if (p && rays.remove(i))
                 i--;
