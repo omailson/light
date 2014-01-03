@@ -45,14 +45,14 @@ Mirror.prototype.computeReflection = function (rays) {
 
     var mirrorSegment = new LineSegment(this.p1, this.p2);
     for (var i = 0; i < rays.data.length; i++) {
-        // TODO check owns?
+        if (this._ownsRay(rays.data[i]))
+            continue;
         // Check whether this new object intersects existing Rays
         p = rays.data[i].intersectionPoint(mirrorSegment);
         if (p !== null) {
             var reflectedVector = Vector2D.reflect(rays.data[i].toVector(), mirrorSegment.toVector());
             var newRay = new Ray(p, reflectedVector);
-            newRay.orientation = rays.data[i].orientation;
-            // TODO orientation?
+            newRay.orientation = rays.data[i].orientation*-1; // XXX
             reflectedRays.push(newRay);
         }
     }

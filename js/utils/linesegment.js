@@ -27,16 +27,26 @@ LineSegment.prototype.toVector = function () {
  * @return {Object} the intersection point between them, or null if invalid
  */
 LineSegment.prototype.intersection = function (line) {
-    var p1 = this.p1;
-    var p2 = this.p2;
+    var p1 = new Point(this.p1);
+    var p2 = new Point(this.p2);
     var q1 = line.p1;
     var q2 = line.p2;
 
     var v = this.toVector();
     var u = line.toVector();
 
-    if (v.crossProduct(u) === 0)
+    if (v.crossProduct(u) === 0) { // parallel
+        // Check special case where both segments are parallel but intersect
+        // only in one point.
+        if (p1.equals(q1) && !p1.equals(q2) ||
+                p1.equals(q2) && !p1.equals(q1))
+            return p1.toJSON();
+        else if (p2.equals(q1) && !p2.equals(q2) ||
+                p2.equals(q2) && !p2.equals(q1))
+            return p2.toJSON();
+
         return null;
+    }
 
     var p1v = new Vector2D(p1.x, p1.y);
     var q1v = new Vector2D(q1.x, q1.y);

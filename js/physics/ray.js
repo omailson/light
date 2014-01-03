@@ -56,8 +56,15 @@ Ray.prototype.intersectionPoint = function (lineSegment) {
     }
 
     var vxu = lineSegment.toVector().crossProduct(this.vector);
-    if (vxu === 0) // parallel
+    if (vxu === 0) { // parallel
+        // Check whether this is a special case where both lines are parallel
+        // but intersect only in one point.
+        var p1 = new Point(this.p1);
+        if (p1.equals(lineSegment.p1) && !p1.equals(lineSegment.p2) ||
+                p1.equals(lineSegment.p2) && !p1.equals(lineSegment.p1))
+            return {x: this.p1.x, y: this.p1.y};
         return null;
+    }
 
     var qp = Vector2D.fromPoints(lineSegment.p1, this.p1);
     var t = qp.crossProduct(this.vector)/vxu;
