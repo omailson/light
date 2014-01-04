@@ -34,6 +34,17 @@ var RayCollection = function (startRay, endRay) {
      */
     this.lightPos = startRay.commonSource(endRay);
 
+    /**
+     * Opacity of the light, from 0 to 1
+     *
+     * If opacity is 0 this RayCollection will be discarded
+     *
+     * @property opacity
+     * @type Number
+     * @public
+     */
+    this.opacity = 1;
+
     this.data.push(startRay);
     this.data.push(endRay);
 };

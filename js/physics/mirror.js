@@ -90,6 +90,7 @@ Mirror.prototype.computeReflection = function (rays) {
         return null;
 
     rayCollection.parentBody = this;
+    rayCollection.opacity = rays.opacity - 0.2;
     return rayCollection;
 };
 

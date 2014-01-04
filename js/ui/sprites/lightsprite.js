@@ -21,16 +21,15 @@ LightSprite.prototype.paint = function (context, rays) {
 };
 
 LightSprite.prototype.draw = function (context) {
-    var opacity = 1;
     var rays = this.entity.rays();
     context.save();
     context.fillStyle = this.color;
-    for (var i = 0; i < this._drawPoints.length; i++, opacity -= 0.2) {
-        context.globalAlpha = opacity;
+    for (var i = 0; i < this._drawPoints.length; i++) {
+        context.globalAlpha = this._drawPoints[i].opacity;
         context.beginPath();
-        context.moveTo(this._drawPoints[i][0].x, this._drawPoints[i][0].y);
-        for (var j = 0; j < this._drawPoints[i].length; j++) {
-            context.lineTo(this._drawPoints[i][j].x, this._drawPoints[i][j].y);
+        context.moveTo(this._drawPoints[i].points[0].x, this._drawPoints[i].points[0].y);
+        for (var j = 0; j < this._drawPoints[i].points.length; j++) {
+            context.lineTo(this._drawPoints[i].points[j].x, this._drawPoints[i].points[j].y);
         }
         context.fill();
     }
@@ -92,7 +91,10 @@ LightSprite.prototype.computeDrawPoints = function (bounds) {
                 points.push(p1);
             }
         }
-        this._drawPoints.push(points);
+        this._drawPoints.push({
+            opacity: rays[i].opacity,
+            points: points
+        });
     }
 };
 

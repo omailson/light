@@ -77,4 +77,9 @@ TestLevels.levels = [
         {type: "light", color: "yellow", rays: [{p1: {x: 110, y: 97.33333}, vector: {x: 90, y: -53.333334}}, {p1: {x: 110, y: 101.66666}, vector: {x: 46, y: 83.33334}}]},
         {type: "mirror", p1: {x: 272, y: 57}, p2: {x: 270, y: 186}}
     ],
+    [
+        {type: "light", rays: [{p1: {x: 110, y: 97.33333}, vector: {x: 300, y: -80}}, {p1: {x: 110, y: 101.66666}, vector: {x: 300, y: 50}}], color: "yellow"},
+        {type: "mirror", p1: {x: 323, y: 74}, p2: {x: 323, y: 119}},
+        {type: "mirror", p1: {x: 50, y: 76}, p2: {x: 50, y: 121}}
+    ],
 ];

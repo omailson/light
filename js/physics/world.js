@@ -116,6 +116,9 @@ World.prototype.computeRays = function (light) {
     var rays = [new RayCollection(startRay, endRay)];
 
     for (var i = 0; i < rays.length; i++) {
+        if (rays[i].opacity <= 0)
+            break;
+
         for (var j = 0; j < this._objects.length; j++) {
             this._objects[j].generateRays(rays[i]);
         }
@@ -134,7 +137,7 @@ World.prototype.computeRays = function (light) {
         for (var j = 0; !collectionEmptied && j < this._objects.length; j++) {
             if (this._objects[j] instanceof Mirror) {
                 var newRays = this._objects[j].computeReflection(rays[i]);
-                if (newRays)
+                if (newRays && newRays.opacity > 0)
                     rays.push(newRays);
             }
         }
