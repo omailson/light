@@ -10,6 +10,58 @@ Debugger.prototype.scene = function () {
     return this.main._game._scene;
 };
 
+Debugger.prototype.dumpLevel = function () {
+    var level = [];
+    var lights = main._game._scene._lights;
+    for (var i = 0; i < lights.length; i++) {
+        var data = this.dumpLight(lights[i]);
+        level.push(data);
+    }
+
+    var objects = main._game._scene._sprites;
+    for (var i = 0; i < objects.length; i++) {
+        var data = this.dumpObject(objects[i]);
+        level.push(data);
+    }
+
+    return level;
+};
+
+Debugger.prototype.dumpObject = function (object) {
+    var data = {};
+    if (object instanceof MirrorSprite)
+        data.type = "mirror";
+    else
+        data.type = "opaque";
+    data.p1 = {x: object.p1.x, y: object.p1.y};
+    data.p2 = {x: object.p2.x, y: object.p2.y};
+
+    return data;
+};
+
+Debugger.prototype.dumpLight = function (light) {
+    var data = {};
+    data.type = "light";
+    data.color = light.color;
+
+    data.rays = [
+        this.dumpRay(light.entity.body.startRay()),
+        this.dumpRay(light.entity.body.endRay())
+    ];
+
+    return data;
+};
+
+Debugger.prototype.dumpRay = function (ray) {
+    var data = {};
+    data.p1 = {x: ray.p1.x, y: ray.p1.y};
+    if (ray.isFinite())
+        data.p2 = {x: ray.p2.x, y: ray.p2.y};
+    data.vector = {x: ray.vector.x, y: ray.vector.y};
+
+    return data;
+};
+
 Debugger.prototype.paintRayCollection = function (rayCollection) {
     for (var i = 0; i < rayCollection.data.length; i++) {
         this.paintRay(rayCollection.data[i]);
