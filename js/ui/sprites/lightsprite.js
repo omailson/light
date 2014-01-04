@@ -4,6 +4,9 @@ var LightSprite = function () {
     this.points = [];
     this.entity = null;
     this._drawPoints = [];
+
+    this._startHandler = null;
+    this._endHandler = null;
 };
 
 /**
@@ -65,6 +68,10 @@ LightSprite._BorderSide = {
 };
 
 LightSprite.prototype.update = function (delta) {
+    this.entity.update(delta);
+    this.pos = this.entity.pos();
+    this._startHandler.update(delta);
+    this._endHandler.update(delta);
 };
 
 LightSprite.prototype.paint = function (context, rays) {
@@ -75,9 +82,6 @@ LightSprite.prototype.draw = function (context) {
     var opacity = 1;
     var rays = this.entity.rays();
     context.save();
-    var size = 20;
-    context.rect(this.pos.x - size/2 + 0.5, this.pos.y - size/2 + 0.5, size, size);
-    context.stroke();
     context.fillStyle = this.color;
     for (var i = 0; i < this._drawPoints.length; i++, opacity -= 0.2) {
         context.globalAlpha = opacity;
@@ -88,6 +92,11 @@ LightSprite.prototype.draw = function (context) {
         }
         context.fill();
     }
+
+    if (this._startHandler)
+        this._startHandler.draw(context);
+    if (this._endHandler)
+        this._endHandler.draw(context);
     context.restore();
 };
 
@@ -186,6 +195,9 @@ LightSprite.prototype.readData = function (data, builder) {
     };
 
     this.entity = builder.buildLightEntity(params, builder);
+
+    this._startHandler = new LightHandlerSprite(this.entity.startHandler);
+    this._endHandler = new LightHandlerSprite(this.entity.endHandler);
 
     this.pos = this.entity.pos();
     this.color = data.color;
