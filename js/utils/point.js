@@ -60,6 +60,40 @@ Point.prototype.equals = function (p) {
 };
 
 /**
+ * Translate this object by a given offset
+ *
+ * @method translate
+ * @param p {Point} an offset to translate
+ */
+Point.prototype.translate = function (p) {
+    this.x = this.x + p.x;
+    this.y = this.y + p.y;
+};
+
+/**
+ * Return another point translated by a given offset
+ *
+ * @method translated
+ * @param p {Point} an offset to translate
+ * @return {Point} a translated point
+ */
+Point.prototype.translated = function (p) {
+    var r = this.clone();
+    r.translate(p);
+    return r;
+};
+
+/**
+ * Create a copy of this object
+ *
+ * @method clone
+ * @return {Point} a copy of the object
+ */
+Point.prototype.clone = function () {
+    return new Point(this.x, this.y);
+};
+
+/**
  * Return a simple JavaScript Object containing the x and y properties
  *
  * @method toJSON
