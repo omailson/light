@@ -115,7 +115,8 @@ LightSprite.prototype.computeDrawPoints = function (bounds) {
     var rays = this.entity.rays();
     for (var i = 0; i < rays.length; i++) {
         var points = [];
-        var side = LightSprite._BorderSide.None;
+        var corners = this._illuminatedVertices(rays[i], bounds);
+
         for (var j = 0; j < rays[i].data.length; j++) {
             var p1 = rays[i].data[j].p1;
             var p2 = rays[i].data[j].p2;
@@ -125,21 +126,24 @@ LightSprite.prototype.computeDrawPoints = function (bounds) {
                 p2 = intersection.point;
             }
 
-            if (side !== LightSprite._BorderSide.None
-                    && side !== intersection.side
-                    && rays[i].data[j-1].orientation === 1
-                    && rays[i].data[j].orientation === -1) {
-                // XXX: Only work when both sides are adjacent
-                var edgeMask = side | intersection.side;
-                var edgePoint = {
-                    x: edgeMask & LightSprite._BorderSide.Left ? bounds.x : bounds.x + bounds.width,
-                    y: edgeMask & LightSprite._BorderSide.Top ? bounds.y : bounds.y + bounds.height
-                };
-                points.push(edgePoint);
+            // Check if one of the corners are illuminated
+            var pushedCorners = [];
+            for (var k = 0; k < corners.length; k++) {
+                var cp = Vector2D.fromPoints(rays[i].lightPos, corners[k]).crossProduct(rays[i].data[j].toVector());
+                if (cp > 0) {
+                    pushedCorners.push(corners[k]);
+                    corners.splice(k, 1);
+                    k--;
+                }
             }
-
-            if (intersection)
-                side = intersection.side;
+            // Those points should be ordered
+            pushedCorners.sort(function (a, b) {
+                var va = Vector2D.fromPoints(rays[i].lightPos, a);
+                var vb = Vector2D.fromPoints(rays[i].lightPos, b);
+                var cp = va.crossProduct(vb);
+                return -cp;
+            });
+            points = points.concat(pushedCorners);
 
             if (rays[i].data[j].orientation === 1) {
                 points.push(p1);
@@ -151,6 +155,37 @@ LightSprite.prototype.computeDrawPoints = function (bounds) {
         }
         this._drawPoints.push(points);
     }
+};
+
+/**
+ * Returns which of the four corners are illuminated by the given RayCollection
+ *
+ * @method _illuminatedVertices
+ * @param rays {RayCollection}
+ * @param bounds {Object} A rectangle (x, y, width, height)
+ * @return {Array} array containing at most 4 points
+ * @private
+ */
+LightSprite.prototype._illuminatedVertices = function (rays, bounds) {
+    var left = bounds.x;
+    var top = bounds.y;
+    var right = bounds.x + bounds.width;
+    var bottom = bounds.y + bounds.height;
+
+    var corners = [
+        {x: left, y: top},
+        {x: right, y: top},
+        {x: right, y: bottom},
+        {x: left, y: bottom}
+    ];
+
+    var vertices = [];
+    for (var i = 0; i < corners.length; i++) {
+        if (rays.contains(corners[i]))
+            vertices.push(corners[i]);
+    }
+
+    return vertices;
 };
 
 /**
