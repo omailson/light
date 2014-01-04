@@ -21,6 +21,17 @@ LineSegment.prototype.toVector = function () {
 };
 
 /**
+ * The middle point of the line segment. This point is equidistant to both
+ * endpoints of the segment.
+ *
+ * @method midpoint
+ * @return {Point} the midpoint
+ */
+LineSegment.prototype.midpoint = function () {
+    return {x: (this.p1.x + this.p2.x) / 2, y: (this.p1.y + this.p2.y) / 2};
+};
+
+/**
  * The intersection of this segment with another line segment
  *
  * @param line {LineSegment} another line segment
