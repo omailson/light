@@ -9,64 +9,6 @@ var LightSprite = function () {
     this._endHandler = null;
 };
 
-/**
- * Describe one of the four sides of the border
- *
- * @class LightSprite._BorderSide
- * @static
- */
-LightSprite._BorderSide = {
-    /**
-     * No side
-     *
-     * @property None
-     * @type LightSprite._BorderSide
-     * @static
-     * @final
-     */
-    None: 0,
-
-    /**
-     * Top border
-     *
-     * @property Top
-     * @type LightSprite._BorderSide
-     * @static
-     * @final
-     */
-    Top: 1,
-
-    /**
-     * Right border
-     *
-     * @property Right
-     * @type LightSprite._BorderSide
-     * @static
-     * @final
-     */
-    Right: 2,
-
-    /**
-     * Bottom border
-     *
-     * @property Bottom
-     * @type LightSprite._BorderSide
-     * @static
-     * @final
-     */
-    Bottom: 4,
-
-    /**
-     * Left border
-     *
-     * @property Left
-     * @type LightSprite._BorderSide
-     * @static
-     * @final
-     */
-    Left: 8
-};
-
 LightSprite.prototype.update = function (delta) {
     this.entity.update(delta);
     this.pos = this.entity.pos();
@@ -120,11 +62,8 @@ LightSprite.prototype.computeDrawPoints = function (bounds) {
         for (var j = 0; j < rays[i].data.length; j++) {
             var p1 = rays[i].data[j].p1;
             var p2 = rays[i].data[j].p2;
-            if (!rays[i].data[j].isFinite()) {
-                // The ray intersects a border
-                var intersection = this._intersectionPoint(rays[i].data[j], bounds);
-                p2 = intersection.point;
-            }
+            if (!rays[i].data[j].isFinite())
+                p2 = this._borderIntersection(rays[i].data[j], bounds);
 
             // Check if one of the corners are illuminated
             var pushedCorners = [];
@@ -189,16 +128,16 @@ LightSprite.prototype._illuminatedVertices = function (rays, bounds) {
 };
 
 /**
- * Given a infinite ray and four vertices, returns at which point the Ray
- * intersects with one of the vertices.
+ * Given a infinite ray and a rectangle, returns at which point the Ray
+ * intersects with one of the edges
  *
- * @method _intersectionPoint
+ * @method _borderIntersection
  * @param ray {Ray} An infinite Ray
  * @param bounds {Object} A rectangle (x, y, width, height)
- * @return {Object} The intersection point (point) and the border side it intersects (side). Or null if it doesn't intersect any border.
+ * @return {Object} The intersection point, or null if it doesn't intersect any border.
  * @private
  */
-LightSprite.prototype._intersectionPoint = function (ray, bounds) {
+LightSprite.prototype._borderIntersection = function (ray, bounds) {
     var left = bounds.x;
     var top = bounds.y;
     var right = bounds.x + bounds.width;
@@ -217,7 +156,7 @@ LightSprite.prototype._intersectionPoint = function (ray, bounds) {
     for (var i = 0; i < segments.length; i++) {
         var p = ray.intersectionPoint(segments[i]);
         if (p)
-            return {point: p, side: Math.pow(2, i)};
+            return p;
     }
 
     return null;
