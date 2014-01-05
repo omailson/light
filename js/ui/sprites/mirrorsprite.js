@@ -5,7 +5,6 @@ var MirrorSprite = function () {
 };
 
 MirrorSprite.prototype.update = function (delta) {
-    this.entity.update(delta);
     this.p1 = this.entity.p1;
     this.p2 = this.entity.p2;
 };

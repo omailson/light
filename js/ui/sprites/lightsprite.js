@@ -10,7 +10,6 @@ var LightSprite = function () {
 };
 
 LightSprite.prototype.update = function (delta) {
-    this.entity.update(delta);
     this.pos = this.entity.pos();
     this._startHandler.update(delta);
     this._endHandler.update(delta);

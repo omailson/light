@@ -22,6 +22,15 @@ GameWorld.prototype.addInput = function (input) {
 GameWorld.prototype.update = function (delta) {
     this._inputManager.processInputs();
     this._world.step();
+
+    var i;
+    for (i = 0; i < this._lights.length; i++) {
+        this._lights[i].update(delta);
+    }
+
+    for (i = 0; i < this._entities.length; i++) {
+        this._entities[i].update(delta);
+    }
 };
 
 GameWorld.prototype.addLight = function (light) {
