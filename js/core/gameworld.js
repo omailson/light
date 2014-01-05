@@ -3,10 +3,16 @@ var GameWorld = function () {
     this._inputManager = new InputManager();
     this._entities = [];
     this._lights = [];
+    this._bounds = {x: 0, y: 0, width: 0, height: 0};
 };
 
 GameWorld.prototype.physicsWorld = function () {
     return this._world;
+};
+
+GameWorld.prototype.setSize = function (width, height) {
+    this._bounds.width = width;
+    this._bounds.height = height;
 };
 
 /**
@@ -25,6 +31,7 @@ GameWorld.prototype.update = function (delta) {
 
     var i;
     for (i = 0; i < this._lights.length; i++) {
+        this._lights[i].computeDrawPoints(this._bounds);
         this._lights[i].update(delta);
     }
 

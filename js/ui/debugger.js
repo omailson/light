@@ -82,7 +82,7 @@ Debugger.prototype.paintRay = function (ray) {
     if (ray.isFinite()) {
         p2 = ray.p2;
     } else {
-        var intersectionPoint = LightSprite.prototype._borderIntersection.bind(null);
+        var intersectionPoint = LightEntity.prototype._borderIntersection.bind(null);
         var bounds = {x: 0, y: 0, width: this.scene().width, height: this.scene().height};
         p2 = intersectionPoint(ray, bounds);
     }

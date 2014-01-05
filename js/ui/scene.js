@@ -20,9 +20,7 @@ Scene.prototype.addSprite = function (sprite) {
 };
 
 Scene.prototype.update = function (delta) {
-    var bounds = {x: 0, y: 0, width: this.width, height: this.height};
     for (var i = 0; i < this._lights.length; i++) {
-        this._lights[i].computeDrawPoints(bounds);
         this._lights[i].update(delta);
     }
 

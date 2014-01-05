@@ -8,10 +8,8 @@ GameFactory.prototype.create = function (canvasElement, levelData) {
     var scene = sceneBuilder.scene();
     this._createSceneSprites(sceneBuilder, levelData.sprites);
 
-    // TODO: continue from here
     var world = worldBuilder.getWorld();
-    world.physicsWorld().setBounds({width: scene.width, height: scene.height});
-    // world.setLevelData(levelData);
+    world.setSize(scene.width, scene.height);
 
     var context = canvasElement.getContext("2d");
 
