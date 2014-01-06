@@ -4,6 +4,7 @@ var LightBoxEntity = function (params) {
 
     this.width = 50;
     this.height = 50;
+    this._blockSize = {width: 12.5, height: 12.5};
 
     this.drawPoints = [];
 

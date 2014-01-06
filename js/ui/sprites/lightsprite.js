@@ -12,8 +12,10 @@ var LightSprite = function () {
 LightSprite.prototype.update = function (delta) {
     this.pos = this.entity.pos();
     this._drawPoints = this.entity.drawPoints;
-    this._startHandler.update(delta);
-    this._endHandler.update(delta);
+    if (this._startHandler)
+        this._startHandler.update(delta);
+    if (this._endHandler)
+        this._endHandler.update(delta);
 };
 
 LightSprite.prototype.paint = function (context, rays) {
@@ -48,8 +50,10 @@ LightSprite.prototype.readData = function (data, builder) {
 
     this.entity = builder.buildLightEntity(params, builder);
 
-    this._startHandler = new LightHandlerSprite(this.entity.startHandler);
-    this._endHandler = new LightHandlerSprite(this.entity.endHandler);
+    if (this.entity.startHandler)
+        this._startHandler = new LightHandlerSprite(this.entity.startHandler);
+    if (this.entity.endHandler)
+        this._endHandler = new LightHandlerSprite(this.entity.endHandler);
 
     this.pos = this.entity.pos();
     this.color = data.color;
