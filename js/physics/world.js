@@ -40,6 +40,33 @@ World.prototype.step = function () {
     }
 };
 
+/**
+ * Destroy a physics body
+ *
+ * @method destroyBody
+ * @param body {Object} The physics body to destroy
+ */
+World.prototype.destroyBody = function (body) {
+    if (!body)
+        return;
+
+    if (body instanceof Light) {
+        for (var i = 0; i < this._lights.length; i++) {
+            if (this._lights[i] === body) {
+                this._lights.splice(i, 1);
+                break;
+            }
+        }
+    } else {
+        for (var i = 0; i < this._objects.length; i++) {
+            if (this._objects[i] === body) {
+                this._objects.splice(i, 1);
+                break;
+            }
+        }
+    }
+};
+
 World.prototype.fetchRays = function (light) {
 };
 
