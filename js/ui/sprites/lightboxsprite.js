@@ -36,7 +36,8 @@ LightBoxSprite.prototype.paint = function (context) {
 LightBoxSprite.prototype.readData = function (data, builder) {
     var params = {
         pos: {x: parseInt(data.pos.x, 10), y: parseInt(data.pos.y, 10)},
-        color: data.color
+        color: data.color,
+        structure: data.structure
     };
 
     this.x = params.pos.x;

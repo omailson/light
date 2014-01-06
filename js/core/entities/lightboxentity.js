@@ -1,6 +1,7 @@
 var LightBoxEntity = function (params) {
     this.x = params.pos.x;
     this.y = params.pos.y;
+    this._structure = params.structure;
 
     this.width = 50;
     this.height = 50;
@@ -13,7 +14,6 @@ var LightBoxEntity = function (params) {
     this.destroyedLights = []; // To be consumed by the GameWorld
     // Internal reference to all owned light entities
     this._lights = [];
-    this._structure = {width: 4, height: 4, map: [0, 1,0, 0, 1,1, 1, 1,1, 1, 1,1]};
     this._computeLightSources();
 };
 
