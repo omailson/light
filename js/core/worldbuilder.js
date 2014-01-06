@@ -26,3 +26,10 @@ WorldBuilder.prototype.buildLightEntity = function (params) {
     this._world.addLight(light);
     return light;
 };
+
+WorldBuilder.prototype.buildLightBoxEntity = function (params) {
+    var lightBox = new LightBoxEntity(params);
+    lightBox.initPhysics(this._world.physicsWorld());
+    this._world.addLightBox(lightBox);
+    return lightBox;
+};

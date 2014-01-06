@@ -19,6 +19,10 @@ Scene.prototype.addSprite = function (sprite) {
     this._sprites.push(sprite);
 };
 
+Scene.prototype.addLightBox = function (lightBox) {
+    this._lights.push(lightBox);
+};
+
 Scene.prototype.update = function (delta) {
     for (var i = 0; i < this._lights.length; i++) {
         this._lights[i].update(delta);

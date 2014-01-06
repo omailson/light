@@ -31,3 +31,9 @@ SceneBuilder.prototype.buildLightSprite = function (data) {
 
     return light;
 };
+
+SceneBuilder.prototype.buildLightBoxSprite = function (data) {
+    var lightBox = new LightBoxSprite();
+    lightBox.readData(data, this._worldBuilder);
+    this._scene.addLightBox(lightBox);
+};

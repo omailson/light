@@ -28,6 +28,8 @@ GameFactory.prototype._createSceneSprites = function (sceneBuilder, sprites) {
             sceneBuilder.buildMirrorSprite(sprites[i]);
         } else if (sprites[i].type === "light") {
             sceneBuilder.buildLightSprite(sprites[i]);
+        } else if (sprites[i].type === "lightbox") {
+            sceneBuilder.buildLightBoxSprite(sprites[i]);
         }
     }
 };
