@@ -60,12 +60,7 @@ LightBoxEntity.prototype._computeLightSources = function () {
  * @private
  */
 LightBoxEntity.prototype._getBlockRays = function (block) {
-    var rect = new Rectangle(
-        this.x - this.width / 2,
-        this.y - this.height / 2,
-        this.width,
-        this.height
-    );
+    var rect = this.boundingBox();
 
     /*
      * Create an array containing the coordinates of each element of the border
@@ -112,6 +107,23 @@ LightBoxEntity.prototype._getBlockRays = function (block) {
     };
 
     return params;
+};
+
+/**
+ * Return the bounding box of the object
+ *
+ * @method boundingBox
+ * @return {Rectangle}
+ */
+LightBoxEntity.prototype.boundingBox = function () {
+    var rect = new Rectangle(
+        this.x - this.width / 2,
+        this.y - this.height / 2,
+        this.width,
+        this.height
+    );
+
+    return rect;
 };
 
 LightBoxEntity.prototype.acceptsInputEvent = function (input) {
