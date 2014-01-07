@@ -37,3 +37,9 @@ SceneBuilder.prototype.buildLightBoxSprite = function (data) {
     lightBox.readData(data, this._worldBuilder);
     this._scene.addLightBox(lightBox);
 };
+
+SceneBuilder.prototype.buildTargetSprite = function (data) {
+    var target = new TargetSprite();
+    target.readData(data, this._worldBuilder);
+    this._scene.addSprite(target);
+};

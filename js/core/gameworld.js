@@ -3,6 +3,7 @@ var GameWorld = function () {
     this._inputManager = new InputManager();
     this._entities = [];
     this._lights = [];
+    this._target = null;
     this._bounds = {x: 0, y: 0, width: 0, height: 0};
 };
 
@@ -56,6 +57,10 @@ GameWorld.prototype.addLight = function (light) {
 GameWorld.prototype.addEntity = function (entity) {
     this._entities.push(entity);
     this._inputManager.registerEntity(entity);
+};
+
+GameWorld.prototype.setTarget = function (entity) {
+    this._target = entity;
 };
 
 GameWorld.prototype._processLightEntities = function () {

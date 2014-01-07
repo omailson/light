@@ -33,3 +33,9 @@ WorldBuilder.prototype.buildLightBoxEntity = function (params) {
     this._world.addLightBox(lightBox);
     return lightBox;
 };
+
+WorldBuilder.prototype.buildTargetEntity = function (params) {
+    var target = new TargetEntity(params);
+    this._world.setTarget(target);
+    return target;
+};
