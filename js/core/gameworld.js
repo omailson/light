@@ -44,6 +44,7 @@ GameWorld.prototype.update = function (delta) {
 
 GameWorld.prototype.addLightBox = function (light) {
     this._lights.push(light);
+    this._inputManager.registerEntity(light);
 };
 
 GameWorld.prototype.addLight = function (light) {

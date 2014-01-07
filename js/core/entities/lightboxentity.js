@@ -126,32 +126,50 @@ LightBoxEntity.prototype.boundingBox = function () {
     return rect;
 };
 
+/**
+ * Return the central region, which in not supposed to have interaction
+ *
+ * @method _innerBoundingBox
+ * @return {Rectangle}
+ * @private
+ */
+LightBoxEntity.prototype._innerBoundingBox = function () {
+    var bb = this.boundingBox();
+    var rect = new Rectangle(
+        bb.x + this._blockSize.width,
+        bb.y + this._blockSize.height,
+        bb.width - 2*this._blockSize.height, // Yes, height.
+        bb.height - 2*this._blockSize.height
+    );
+
+    return rect;
+};
+
 LightBoxEntity.prototype.acceptsInputEvent = function (input) {
-    if (this._grabbedLight)
-        this._grabbedLight.acceptsInputEvent(input);
-    for (var i = 0; i < this._lights.length; i++) {
-        if (this._lights[i].acceptsInputEvent(input)) {
-            this._grabbedLight = this._lights[i];
-            return true;
-        }
-    }
+    if (input.type !== InputEvent.Type.Press &&
+            input.type !== InputEvent.Type.Release)
+        return false;
+
+    if (this.boundingBox().contains(input.position) &&
+            !this._innerBoundingBox().contains(input.position))
+        return true;
 
     return false;
 };
 
 LightBoxEntity.prototype.onPress = function (ev) {
-    if (this._grabbedLight)
-        this._grabbedLight.onPress(ev);
-};
-
-LightBoxEntity.prototype.onMove = function (ev) {
-    if (this._grabbedLight)
-        this._grabbedLight.onMove(ev);
 };
 
 LightBoxEntity.prototype.onRelease = function (ev) {
-    if (this._grabbedLight)
-        this._grabbedLight.onRelease(ev);
+    var relativePos = {x: ev.position.x - this.boundingBox().x,
+        y: ev.position.y - this.boundingBox().y};
+    var column = Math.floor(relativePos.x / this._blockSize.width);
+    var row = Math.floor(relativePos.y / this._blockSize.width); // Yes, width
+    var total = 2*this._structure.width + 2*this._structure.height - 4;
+    var index = column >= row ? column + row : total - (column + row);
 
-    this._grabbedLight = null;
+    if (this._structure.map[index] === 1) {
+        this._structure.map[index] = 0;
+        this._computeLightSources();
+    }
 };
