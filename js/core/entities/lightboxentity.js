@@ -1,7 +1,7 @@
 var LightBoxEntity = function (params) {
     this.x = params.pos.x;
     this.y = params.pos.y;
-    this._structure = params.structure;
+    this.structure = params.structure;
 
     this.width = 50;
     this.height = 50;
@@ -40,8 +40,8 @@ LightBoxEntity.prototype._computeLightSources = function () {
     this.destroyedLights = this.destroyedLights.concat(this._lights);
     this._lights.length = 0;
 
-    for (var i = 0; i < this._structure.map.length; i++) {
-        if (this._structure.map[i] === 0) {
+    for (var i = 0; i < this.structure.map.length; i++) {
+        if (this.structure.map[i] === 0) {
             var light = new LightEntity(this._getBlockRays(i));
             this._lights.push(light);
             this.newLights.push(light);
@@ -83,8 +83,8 @@ LightBoxEntity.prototype._getBlockRays = function (block) {
     var directions = [];
     var x = 0;
     var y = 0;
-    var w = this._structure.width;
-    var h = this._structure.height;
+    var w = this.structure.width;
+    var h = this.structure.height;
     for (x = 1; x < w; x++)
         directions.push(new Vector2D(x, y));
     for (y = 1; y < h; y++)
@@ -96,10 +96,10 @@ LightBoxEntity.prototype._getBlockRays = function (block) {
 
     var directionStart = block > 0 ? block - 1 : directions.length - 1;
     var directionEnd = block;
-    var startPoint = {x: rect.left() + directions[directionStart].x * rect.width / this._structure.width,
-        y: rect.top() + directions[directionStart].y * rect.height / this._structure.height};
-    var endPoint = {x: rect.left() + directions[directionEnd].x * rect.width / this._structure.width,
-        y: rect.top() + directions[directionEnd].y * rect.height / this._structure.height};
+    var startPoint = {x: rect.left() + directions[directionStart].x * rect.width / this.structure.width,
+        y: rect.top() + directions[directionStart].y * rect.height / this.structure.height};
+    var endPoint = {x: rect.left() + directions[directionEnd].x * rect.width / this.structure.width,
+        y: rect.top() + directions[directionEnd].y * rect.height / this.structure.height};
 
     var params = {
         startRay: new Ray(startPoint, Vector2D.fromPoints(rect.center(), startPoint)),
@@ -165,11 +165,11 @@ LightBoxEntity.prototype.onRelease = function (ev) {
         y: ev.position.y - this.boundingBox().y};
     var column = Math.floor(relativePos.x / this._blockSize.width);
     var row = Math.floor(relativePos.y / this._blockSize.width); // Yes, width
-    var total = 2*this._structure.width + 2*this._structure.height - 4;
+    var total = 2*this.structure.width + 2*this.structure.height - 4;
     var index = column >= row ? column + row : total - (column + row);
 
-    if (this._structure.map[index] === 1) {
-        this._structure.map[index] = 0;
+    if (this.structure.map[index] === 1) {
+        this.structure.map[index] = 0;
         this._computeLightSources();
     }
 };
