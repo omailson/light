@@ -1,11 +1,13 @@
 var LightBoxEntity = function (params) {
+    this.blockWidth = 30;
+    this.blockHeight = 30;
+
     this.x = params.pos.x;
     this.y = params.pos.y;
     this.structure = params.structure;
 
-    this.width = 50;
-    this.height = 50;
-    this._blockSize = {width: 12.5, height: 12.5};
+    this.width = params.structure.width * this.blockWidth;
+    this.height = params.structure.height * this.blockWidth; // Yes, width
 
     this.drawPoints = [];
 
@@ -136,10 +138,10 @@ LightBoxEntity.prototype.boundingBox = function () {
 LightBoxEntity.prototype._innerBoundingBox = function () {
     var bb = this.boundingBox();
     var rect = new Rectangle(
-        bb.x + this._blockSize.width,
-        bb.y + this._blockSize.height,
-        bb.width - 2*this._blockSize.height, // Yes, height.
-        bb.height - 2*this._blockSize.height
+        bb.x + this.blockWidth,
+        bb.y + this.blockHeight,
+        bb.width - 2*this.blockHeight, // Yes, height.
+        bb.height - 2*this.blockHeight
     );
 
     return rect;
@@ -163,8 +165,8 @@ LightBoxEntity.prototype.onPress = function (ev) {
 LightBoxEntity.prototype.onRelease = function (ev) {
     var relativePos = {x: ev.position.x - this.boundingBox().x,
         y: ev.position.y - this.boundingBox().y};
-    var column = Math.floor(relativePos.x / this._blockSize.width);
-    var row = Math.floor(relativePos.y / this._blockSize.width); // Yes, width
+    var column = Math.floor(relativePos.x / this.blockWidth);
+    var row = Math.floor(relativePos.y / this.blockWidth); // Yes, width
     var total = 2*this.structure.width + 2*this.structure.height - 4;
     var index = column >= row ? column + row : total - (column + row);
 
