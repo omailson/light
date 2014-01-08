@@ -130,6 +130,26 @@ LightBoxEntity.prototype.boundingBox = function () {
 };
 
 /**
+ * Whether any light of the light box hits the target
+ *
+ * @method hits
+ * @param target {TargetEntity}
+ * @return {Boolean}
+ */
+LightBoxEntity.prototype.hits = function (target) {
+    var p = {x: target.x, y: target.y};
+    for (var i = 0; i < this._lights.length; i++) {
+        var rays = this._lights[i].rays();
+        for (var j = 0; j < rays.length; j++) {
+            if (rays[j].contains(p))
+                return true;
+        }
+    }
+
+    return false;
+};
+
+/**
  * Return the central region, which in not supposed to have interaction
  *
  * @method _innerBoundingBox

@@ -5,6 +5,7 @@ var GameWorld = function () {
     this._lights = [];
     this._target = null;
     this._bounds = {x: 0, y: 0, width: 0, height: 0};
+    this._finished = false;
 };
 
 GameWorld.prototype.physicsWorld = function () {
@@ -41,6 +42,9 @@ GameWorld.prototype.update = function (delta) {
     for (i = 0; i < this._entities.length; i++) {
         this._entities[i].update(delta);
     }
+
+    if (this._targetHit())
+        this.finish();
 };
 
 GameWorld.prototype.addLightBox = function (light) {
@@ -77,4 +81,51 @@ GameWorld.prototype._processLightEntities = function () {
             this._lights[i].destroyedLights.length = 0;
         }
     }
+};
+
+/**
+ * Whether all lights hit the target
+ *
+ * @method _targetHit
+ * @return {Boolean}
+ * @private
+ */
+GameWorld.prototype._targetHit = function () {
+    if (!this._target)
+        return false;
+
+    var colorsHit = 0;
+    for (var i = 0; i < this._lights.length; i++) {
+        // XXX I guess is still important to allow LightEntity in this._lights
+        // for debugging purposes
+        if (!(this._lights[i] instanceof LightBoxEntity))
+            continue;
+
+        if (this._target.colors.indexOf(this._lights[i].color) === -1)
+            continue;
+
+        if (this._lights[i].hits(this._target))
+            colorsHit++;
+    }
+
+    return colorsHit === this._target.colors.length;
+};
+
+/**
+ * Mark current level as finished
+ *
+ * @method finish
+ */
+GameWorld.prototype.finish = function () {
+    this._finished = true;
+};
+
+/**
+ * Whether the game has finished
+ *
+ * @method hasFinished
+ * @return {Boolean}
+ */
+GameWorld.prototype.hasFinished = function () {
+    return this._finished;
 };
