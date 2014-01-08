@@ -1,0 +1,256 @@
+.visible {
+  opacity: 1;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.delay {
+  visibility: hidden;
+  -webkit-transition-property: visibility;
+  -webkit-transition-duration: 400ms;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-property: visibility;
+  -moz-transition-duration: 400ms;
+  -moz-transition-timing-function: linear;
+  -ms-transition-property: visibility;
+  -ms-transition-duration: 400ms;
+  -ms-transition-timing-function: linear;
+  -o-transition-property: visibility;
+  -o-transition-duration: 400ms;
+  -o-transition-timing-function: linear;
+  transition-property: visibility;
+  transition-duration: 400ms;
+  transition-timing-function: linear;
+}
+
+.fadeIn {
+  opacity: 1;
+  -webkit-transition-property: opacity;
+  -webkit-transition-duration: 400ms;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-property: opacity;
+  -moz-transition-duration: 400ms;
+  -moz-transition-timing-function: linear;
+  -ms-transition-property: opacity;
+  -ms-transition-duration: 400ms;
+  -ms-transition-timing-function: linear;
+  -o-transition-property: opacity;
+  -o-transition-duration: 400ms;
+  -o-transition-timing-function: linear;
+  transition-property: opacity;
+  transition-duration: 400ms;
+  transition-timing-function: linear;
+}
+
+.fadeOut {
+  opacity: 0;
+  -webkit-transition-property: opacity;
+  -webkit-transition-duration: 400ms;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-property: opacity;
+  -moz-transition-duration: 400ms;
+  -moz-transition-timing-function: linear;
+  -ms-transition-property: opacity;
+  -ms-transition-duration: 400ms;
+  -ms-transition-timing-function: linear;
+  -o-transition-property: opacity;
+  -o-transition-duration: 400ms;
+  -o-transition-timing-function: linear;
+  transition-property: opacity;
+  transition-duration: 400ms;
+  transition-timing-function: linear;
+}
+
+.slideInLeft {
+  -webkit-animation-name: slide-in-left;
+  -webkit-animation-duration: 700ms;
+  -webkit-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -webkit-animation-fill-mode: both;
+  -moz-animation-name: slide-in-left;
+  -moz-animation-duration: 700ms;
+  -moz-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -moz-animation-fill-mode: both;
+  -ms-animation-name: slide-in-left;
+  -ms-animation-duration: 700ms;
+  -ms-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -ms-animation-fill-mode: both;
+  -o-animation-name: slide-in-left;
+  -o-animation-duration: 700ms;
+  -o-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -o-animation-fill-mode: both;
+  animation-name: slide-in-left;
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes slide-in-left {
+  from { right: 100%; }
+  to { right: 0%; }
+}
+
+@-moz-keyframes slide-in-left {
+  from { right: 100%; }
+  to { right: 0%; }
+}
+
+@-ms-keyframes slide-in-left {
+  from { right: 100%; }
+  to { right: 0%; }
+}
+
+@-o-keyframes slide-in-left {
+  from { right: 100%; }
+  to { right: 0%; }
+}
+
+@keyframes slide-in-left {
+  from { right: 100%; }
+  to { right: 0%; }
+}
+
+.slideInRight {
+  -webkit-animation-name: slide-in-right;
+  -webkit-animation-duration: 700ms;
+  -webkit-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -webkit-animation-fill-mode: both;
+  -moz-animation-name: slide-in-right;
+  -moz-animation-duration: 700ms;
+  -moz-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -moz-animation-fill-mode: both;
+  -ms-animation-name: slide-in-right;
+  -ms-animation-duration: 700ms;
+  -ms-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -ms-animation-fill-mode: both;
+  -o-animation-name: slide-in-right;
+  -o-animation-duration: 700ms;
+  -o-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -o-animation-fill-mode: both;
+  animation-name: slide-in-right;
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes slide-in-right {
+  from { left: 100%; }
+  to { left: 0%; }
+}
+
+@-moz-keyframes slide-in-right {
+  from { left: 100%; }
+  to { left: 0%; }
+}
+
+@-ms-keyframes slide-in-right {
+  from { left: 100%; }
+  to { left: 0%; }
+}
+
+@-o-keyframes slide-in-right {
+  from { left: 100%; }
+  to { left: 0%; }
+}
+
+@keyframes slide-in-right {
+  from { left: 100%; }
+  to { left: 0%; }
+}
+
+.slideOutLeft {
+  -webkit-animation-name: slide-out-left;
+  -webkit-animation-duration: 700ms;
+  -webkit-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -webkit-animation-fill-mode: both;
+  -moz-animation-name: slide-out-left;
+  -moz-animation-duration: 700ms;
+  -moz-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -moz-animation-fill-mode: both;
+  -ms-animation-name: slide-out-left;
+  -ms-animation-duration: 700ms;
+  -ms-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -ms-animation-fill-mode: both;
+  -o-animation-name: slide-out-left;
+  -o-animation-duration: 700ms;
+  -o-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -o-animation-fill-mode: both;
+  animation-name: slide-out-left;
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes slide-out-left {
+  from { right: 0%; }
+  to { right: 100%; }
+}
+
+@-moz-keyframes slide-out-left {
+  from { right: 0%; }
+  to { right: 100%; }
+}
+
+@-ms-keyframes slide-out-left {
+  from { right: 0%; }
+  to { right: 100%; }
+}
+
+@-o-keyframes slide-out-left {
+  from { right: 0%; }
+  to { right: 100%; }
+}
+
+@keyframes slide-out-left {
+  from { right: 0%; }
+  to { right: 100%; }
+}
+
+.slideOutRight {
+  -webkit-animation-name: slide-out-right;
+  -webkit-animation-duration: 700ms;
+  -webkit-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -webkit-animation-fill-mode: both;
+  -moz-animation-name: slide-out-right;
+  -moz-animation-duration: 700ms;
+  -moz-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -moz-animation-fill-mode: both;
+  -ms-animation-name: slide-out-right;
+  -ms-animation-duration: 700ms;
+  -ms-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -ms-animation-fill-mode: both;
+  -o-animation-name: slide-out-right;
+  -o-animation-duration: 700ms;
+  -o-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -o-animation-fill-mode: both;
+  animation-name: slide-out-right;
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes slide-out-right {
+  from { left: 0%; }
+  to { left: 100%; }
+}
+
+@-moz-keyframes slide-out-right {
+  from { left: 0%; }
+  to { left: 100%; }
+}
+
+@-ms-keyframes slide-out-right {
+  from { left: 0%; }
+  to { left: 100%; }
+}
+
+@-o-keyframes slide-out-right {
+  from { left: 0%; }
+  to { left: 100%; }
+}
+
+@keyframes slide-out-right {
+  from { left: 0%; }
+  to { left: 100%; }
+}
