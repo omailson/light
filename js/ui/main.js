@@ -6,7 +6,6 @@
  */
 var Main = function () {
     this._game = null;
-    this._timestamp = 0;
     if (window.Debugger)
         this.debug = new Debugger(this);
 
@@ -73,81 +72,11 @@ Main.prototype._onInputEvent = function (e) {
 };
 
 /**
- * First tick of the game
- *
- * See _requestFrame
- *
- * @method _firstTick
- * @param timestamp {Number} Current (and first) timestamp
- * @private
- */
-Main.prototype._firstTick = function (timestamp) {
-    this._timestamp = timestamp;
-    this._requestFrame();
-};
-
-/**
- * Game tick. Called at every frame update.
- *
- * See _requestFrame
- *
- * @method _tick
- * @param timestamp {Number} current timestamp
- * @private
- */
-Main.prototype._tick = function (timestamp) {
-    var delta = timestamp - this._timestamp;
-    this._timestamp = timestamp;
-
-    if (!this._pause) {
-        this._game.update(delta);
-        this._game.paint();
-    }
-
-    this._requestFrame();
-};
-
-/**
- * Request the next frame
- *
- * This is kind of a wrapper to requestAnimationFrame
- *
- * @method _requestFrame
- * @private
- */
-Main.prototype._requestFrame = function () {
-    if (this._timestamp === 0)
-        requestAnimationFrame(this._firstTick.bind(this));
-    else
-        requestAnimationFrame(this._tick.bind(this));
-};
-
-/**
- * Pause game. Pass a boolean or nothing to toggle
- *
- * @method pause
- * @param pause {Boolean} Whether the game should be paused or resumed. Leave it blank to toggle
- */
-Main.prototype.pause = function (pause) {
-    if (arguments.length === 0)
-        pause = !this._pause;
-
-    if (this._pause === !!pause)
-        return;
-
-    this._pause = !!pause;
-    if (this._pause)
-        document.getElementById("paused").style.display = "";
-    else
-        document.getElementById("paused").style.display = "none";
-};
-
-/**
  * Run the game
  *
  * @method run
  */
 Main.prototype.run = function () {
     this._init();
-    this._requestFrame();
+    this._game.start();
 };
