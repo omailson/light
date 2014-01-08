@@ -5,6 +5,7 @@ var LightBoxEntity = function (params) {
     this.x = params.pos.x;
     this.y = params.pos.y;
     this.structure = params.structure;
+    this.color = params.color;
 
     this.width = params.structure.width * this.blockWidth;
     this.height = params.structure.height * this.blockWidth; // Yes, width

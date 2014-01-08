@@ -137,5 +137,6 @@ LightBoxSprite.prototype.readData = function (data, builder) {
     this.x = params.pos.x;
     this.y = params.pos.y;
     this.color = params.color;
+    this.structure = params.structure;
     this.entity = builder.buildLightBoxEntity(params);
 };
