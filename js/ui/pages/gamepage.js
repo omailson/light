@@ -37,5 +37,10 @@ GamePage.prototype._onShow = function () {
 
 GamePage.prototype.onNavigatedTo = function (params) {
     this._game = this._gameFactory.create(this._canvas, params);
+    this._game.addEndedEventListener(this._onEnded.bind(this));
     this._game.start();
+};
+
+GamePage.prototype._onEnded = function () {
+    main._goToMainPage();
 };

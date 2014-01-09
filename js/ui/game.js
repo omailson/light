@@ -5,6 +5,7 @@ var Game = function (world, scene, context) {
 
     this._timestamp = 0;
     this._pause = false;
+    this._endedDispatcher = new EventDispatcher();
 };
 
 Game.prototype.init = function () {
@@ -50,6 +51,11 @@ Game.prototype._tick = function (timestamp) {
     if (!this._pause) {
         this.update(delta);
         this.paint();
+    }
+
+    if (this._gameWorld.hasFinished()) {
+        this._endedDispatcher.dispatch();
+        return;
     }
 
     this._requestFrame();
@@ -105,6 +111,14 @@ Game.prototype.resume = function () {
  */
 Game.prototype.isPaused = function () {
     return this._pause;
+};
+
+Game.prototype.addEndedEventListener = function (listener) {
+    this._endedDispatcher.addListener(listener);
+};
+
+Game.prototype.removeEndedEventListener = function (listener) {
+    this._endedDispatcher.removeListener(listener);
 };
 
 Game.prototype.update = function (delta) {
