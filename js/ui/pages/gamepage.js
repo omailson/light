@@ -27,7 +27,8 @@ GamePage.prototype._initInputListener = function (body, element) {
 };
 
 GamePage.prototype._onInputEvent = function (e) {
-    this._game.addInput(e);
+    if (this._game && !this._game.isPaused())
+        this._game.addInput(e);
 };
 
 GamePage.prototype._onShow = function () {

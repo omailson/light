@@ -18,7 +18,8 @@ Game.prototype.init = function () {
  * @param e {InputEvent} input event
  */
 Game.prototype.addInput = function (e) {
-    this._gameWorld.addInput(e);
+    if (!this._gameWorld.hasFinished())
+        this._gameWorld.addInput(e);
 };
 
 /**
