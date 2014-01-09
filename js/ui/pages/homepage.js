@@ -8,8 +8,9 @@ var HomePage = function (element, navigator) {
 inherits(HomePage, Page);
 
 HomePage.prototype._onPlayClicked = function () {
+    var levelData = deepCopy(this._levelData);
     this.goTo("game-page", Component.TransitionType.SlideOutLeft,
-            Component.TransitionType.SlideInRight, this._levelData);
+            Component.TransitionType.SlideInRight, levelData);
 };
 
 HomePage.prototype.onNavigatedTo = function (params) {
