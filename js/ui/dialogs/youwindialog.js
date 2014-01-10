@@ -46,13 +46,13 @@ YouWinDialog.DismissReason = {
 };
 
 YouWinDialog.prototype._initButtons = function () {
-    var menuButtonElement = document.getElementById("you-win-menu");
+    var menuButtonElement = DOMTree.get(R.YouWinDialog.Menu);
     this._menuButton = new Button(menuButtonElement, this._onMenuClicked.bind(this));
 
-    var playAgainButtonElement = document.getElementById("you-win-playagain");
+    var playAgainButtonElement = DOMTree.get(R.YouWinDialog.PlayAgain);
     this._playAgainButton = new Button(playAgainButtonElement, this._onPlayAgainClicked.bind(this));
 
-    var nextButtonElement = document.getElementById("you-win-nextlevel");
+    var nextButtonElement = DOMTree.get(R.YouWinDialog.NextLevel);
     this._nextButton = new Button(nextButtonElement, this._onNextClicked.bind(this));
 };
 

@@ -21,16 +21,16 @@ var Main = function () {
  */
 Main.prototype._init = function () {
     this._createPages();
-    document.getElementById("paused").style.display = "none";
+    DOMTree.get(R.PausedText).style.display = "none";
     this._goToMainPage();
 };
 
 Main.prototype._createPages = function () {
-    var gamePageDiv = document.getElementById("gamepage");
+    var gamePageDiv = DOMTree.get(R.GamePage);
     this._gamePage = new GamePage(gamePageDiv, this._navigator);
     this._navigator.registerUri("game-page", this._gamePage);
 
-    var homePageDiv = document.getElementById("homepage");
+    var homePageDiv = DOMTree.get(R.HomePage);
     this._homePage = new HomePage(homePageDiv, this._navigator);
     this._navigator.registerUri("home-page", this._homePage);
 };

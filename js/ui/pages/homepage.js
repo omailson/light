@@ -2,7 +2,7 @@ var HomePage = function (element, navigator) {
     Page.call(this, element, navigator);
 
     this._levelData = {};
-    this._playButton = new Button(document.getElementById("hp-play"), this._onPlayClicked.bind(this));
+    this._playButton = new Button(DOMTree.get(R.HomePage.Play), this._onPlayClicked.bind(this));
 };
 
 inherits(HomePage, Page);

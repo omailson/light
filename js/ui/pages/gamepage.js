@@ -1,15 +1,15 @@
 var GamePage = function (element, navigator) {
     Page.call(this, element, navigator);
 
-    this._canvas = document.getElementById("canvas");
+    this._canvas = DOMTree.get(R.Canvas);
     this._inputListener = null;
-    this._initInputListener(document.body, this._canvas);
+    this._initInputListener(DOMTree.get(R.Body), this._canvas);
 
     this._gameController = new GameController();
     this._gameController.setCanvas(this._canvas);
     this._gameController.addEndedEventListener(this._onEnded.bind(this));
 
-    this._youWinDialog = this._createYouWinDialog(document.getElementById("you-win-dialog"));
+    this._youWinDialog = this._createYouWinDialog(DOMTree.get(R.YouWinDialog));
 };
 
 inherits(GamePage, Page);
