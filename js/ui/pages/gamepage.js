@@ -45,8 +45,18 @@ GamePage.prototype._onShow = function () {
 };
 
 GamePage.prototype.onNavigatedTo = function (params) {
+    this._levelData = deepCopy(params);
+    this._createGame(params);
+    this._game.start();
+};
+
+GamePage.prototype._createGame = function (params) {
     this._game = this._gameFactory.create(this._canvas, params);
     this._game.addEndedEventListener(this._onEnded.bind(this));
+};
+
+GamePage.prototype._reload = function () {
+    this._createGame(deepCopy(this._levelData));
     this._game.start();
 };
 
@@ -60,6 +70,7 @@ GamePage.prototype._onYouWinDialogDismissed = function (reason) {
             main._goToMainPage();
             break;
         case YouWinDialog.DismissReason.PlayAgain:
+            this._reload();
             break;
         case YouWinDialog.DismissReason.Next:
             break;
