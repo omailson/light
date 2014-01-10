@@ -45,7 +45,7 @@ GamePage.prototype._onShow = function () {
 };
 
 GamePage.prototype.onNavigatedTo = function (params) {
-    this._levelData = deepCopy(params);
+    this._levelData = params;
     this._createGame(params);
     this._game.start();
 };
@@ -56,7 +56,7 @@ GamePage.prototype._createGame = function (params) {
 };
 
 GamePage.prototype._reload = function () {
-    this._createGame(deepCopy(this._levelData));
+    this._createGame(this._levelData);
     this._game.start();
 };
 

@@ -1,7 +1,9 @@
 var GameFactory = function () {
 };
 
-GameFactory.prototype.create = function (canvasElement, levelData) {
+GameFactory.prototype.create = function (canvasElement, params) {
+    var levelData = deepCopy(params);
+
     var worldBuilder = new WorldBuilder();
     var sceneBuilder = this._createSceneBuilder(worldBuilder, canvasElement);
 
