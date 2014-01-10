@@ -114,6 +114,18 @@ Game.prototype.isPaused = function () {
     return this._pause;
 };
 
+/**
+ * Check whether the game is running
+ *
+ * This method returns false if either the game is paused or it has finished
+ *
+ * @method isRunning
+ * @return {Boolean}
+ */
+Game.prototype.isRunning = function () {
+    return !this.isPaused() && !this._gameWorld.hasFinished();
+};
+
 Game.prototype.addEndedEventListener = function (listener) {
     this._endedDispatcher.addListener(listener);
 };

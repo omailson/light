@@ -1,12 +1,13 @@
 var GamePage = function (element, navigator) {
     Page.call(this, element, navigator);
 
-    this._gameFactory = new GameFactory();
-    this._game = null;
-    this._inputListener = null;
-
     this._canvas = document.getElementById("canvas");
+    this._inputListener = null;
     this._initInputListener(document.body, this._canvas);
+
+    this._gameController = new GameController();
+    this._gameController.setCanvas(this._canvas);
+    this._gameController.addEndedEventListener(this._onEnded.bind(this));
 
     this._youWinDialog = this._createYouWinDialog(document.getElementById("you-win-dialog"));
 };
@@ -35,8 +36,7 @@ GamePage.prototype._createYouWinDialog = function (element) {
 };
 
 GamePage.prototype._onInputEvent = function (e) {
-    if (this._game && !this._game.isPaused())
-        this._game.addInput(e);
+    this._gameController.addInput(e);
 };
 
 GamePage.prototype._onShow = function () {
@@ -45,19 +45,8 @@ GamePage.prototype._onShow = function () {
 };
 
 GamePage.prototype.onNavigatedTo = function (params) {
-    this._levelData = params;
-    this._createGame(params);
-    this._game.start();
-};
-
-GamePage.prototype._createGame = function (params) {
-    this._game = this._gameFactory.create(this._canvas, params);
-    this._game.addEndedEventListener(this._onEnded.bind(this));
-};
-
-GamePage.prototype._reload = function () {
-    this._createGame(this._levelData);
-    this._game.start();
+    this._gameController.load(params);
+    this._gameController.start();
 };
 
 GamePage.prototype._onEnded = function () {
@@ -70,7 +59,7 @@ GamePage.prototype._onYouWinDialogDismissed = function (reason) {
             main._goToMainPage();
             break;
         case YouWinDialog.DismissReason.PlayAgain:
-            this._reload();
+            this._gameController.reload();
             break;
         case YouWinDialog.DismissReason.Next:
             break;
