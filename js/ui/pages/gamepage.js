@@ -7,6 +7,8 @@ var GamePage = function (element, navigator) {
 
     this._canvas = document.getElementById("canvas");
     this._initInputListener(document.body, this._canvas);
+
+    this._youWinDialog = this._createYouWinDialog(document.getElementById("you-win-dialog"));
 };
 
 inherits(GamePage, Page);
@@ -26,6 +28,12 @@ GamePage.prototype._initInputListener = function (body, element) {
     this._inputListener.released = this._onInputEvent.bind(this);
 };
 
+GamePage.prototype._createYouWinDialog = function (element) {
+    var youWinDialog = new YouWinDialog(element);
+    youWinDialog.setDismissedListener(this._onYouWinDialogDismissed.bind(this));
+    return youWinDialog;
+};
+
 GamePage.prototype._onInputEvent = function (e) {
     if (this._game && !this._game.isPaused())
         this._game.addInput(e);
@@ -43,5 +51,17 @@ GamePage.prototype.onNavigatedTo = function (params) {
 };
 
 GamePage.prototype._onEnded = function () {
-    main._goToMainPage();
+    this._youWinDialog.show();
+};
+
+GamePage.prototype._onYouWinDialogDismissed = function (reason) {
+    switch (reason) {
+        case YouWinDialog.DismissReason.Menu:
+            main._goToMainPage();
+            break;
+        case YouWinDialog.DismissReason.PlayAgain:
+            break;
+        case YouWinDialog.DismissReason.Next:
+            break;
+    }
 };
