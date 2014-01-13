@@ -12,5 +12,11 @@ var R = {
         root: document.getElementById("homepage"),
         Play: document.getElementById("hp-play")
     },
+    LevelPage: {
+        root: document.getElementById("levelpage"),
+        LevelList: document.getElementById("levels"),
+        Levels: function () { return document.querySelectorAll("#levelpage li"); },
+        Back: document.getElementById("levelpage-back")
+    },
     PausedText: document.getElementById("paused")
 };

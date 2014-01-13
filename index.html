@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="css/content.css" />
         <link rel="stylesheet" href="css/component.css" />
         <link rel="stylesheet" href="css/page.css" />
+        <link rel="stylesheet" href="css/levelpage.css" />
         <link rel="stylesheet" href="css/dialog.css" />
         <link rel="stylesheet" href="css/widgets.css" />
         <link rel="stylesheet" href="css/youwindialog.css" />
@@ -28,6 +29,13 @@
             <div id="homepage" class="page hidden">
                 <h1>Light Trap</h1>
                 <p id="hp-play" class="button">Play!</p>
+            </div>
+
+            <div id="levelpage" class="page hidden">
+                <h1>Level page</h1>
+                <h2>Choose your level</h2>
+                <ul id="levels"></ul>
+                <p id="levelpage-back" class="button">Back</p>
             </div>
         </div>
         <p id="paused">PAUSED</p>
@@ -83,6 +91,7 @@
         <script src="js/ui/component.js"></script>
         <script src="js/ui/page.js"></script>
         <script src="js/ui/pagenavigator.js"></script>
+        <script src="js/ui/pages/levelpage.js"></script>
         <script src="js/ui/pages/gamepage.js"></script>
         <script src="js/ui/pages/homepage.js"></script>
         <script src="js/ui/dialog.js"></script>

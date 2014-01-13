@@ -11,6 +11,7 @@ var Main = function () {
     this._navigator = new PageNavigator();
     this._homePage = null;
     this._gamePage = null;
+    this._levelPage = null;
 };
 
 /**
@@ -33,6 +34,10 @@ Main.prototype._createPages = function () {
     var homePageDiv = DOMTree.get(R.HomePage);
     this._homePage = new HomePage(homePageDiv, this._navigator);
     this._navigator.registerUri("home-page", this._homePage);
+
+    var levelPageDiv = DOMTree.get(R.LevelPage);
+    this._levelPage = new LevelPage(levelPageDiv, this._navigator);
+    this._navigator.registerUri("level-page", this._levelPage);
 };
 
 Main.prototype._goToMainPage = function () {
@@ -43,7 +48,7 @@ Main.prototype._goToMainPage = function () {
             {type: "opaque", p1: {x: 250, y: 40}, p2: {x: 250, y: 70}}
         ]
     };
-    this._navigator.goTo("home-page", null, null, levelData);
+    this._navigator.goTo("home-page", null, null, [levelData]);
 };
 
 /**
