@@ -34,8 +34,13 @@ LevelPage.prototype._createLevelButtons = function () {
 };
 
 LevelPage.prototype._onLevelClicked = function (level) {
+    var params = {
+        model: this._levelModel,
+        level: level
+    };
+
     this.goTo("game-page", Component.TransitionType.SlideOutLeft,
-            Component.TransitionType.SlideInRight, this._levelModel[level]);
+            Component.TransitionType.SlideInRight, params);
 };
 
 LevelPage.prototype._onBackPressed = function () {

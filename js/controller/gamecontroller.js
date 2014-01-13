@@ -10,6 +10,7 @@ var GameController = function (model) {
     this._game = null;
     this._canvas = null;
     this._levelData = {};
+    this._level = -1;
 
     this._endedDispatcher = new EventDispatcher();
 };
@@ -84,10 +85,11 @@ GameController.prototype.reload = function () {
  * Load a level
  *
  * @method load
- * @param levelData {Object}
+ * @param level {Number} the level number
  */
-GameController.prototype.load = function (levelData) {
-    this._levelData = levelData;
+GameController.prototype.load = function (level) {
+    this._level = level;
+    this._levelData = this._model[level];
     this._createGame();
 };
 

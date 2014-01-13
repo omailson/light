@@ -5,6 +5,7 @@ var GamePage = function (element, navigator, gameController) {
     this._inputListener = null;
     this._initInputListener(DOMTree.get(R.Body), this._canvas);
 
+    this._levelModel = null;
     this._gameController = gameController;
     this._gameController.setCanvas(this._canvas);
     this._gameController.addEndedEventListener(this._onEnded.bind(this));
@@ -45,7 +46,9 @@ GamePage.prototype._onShow = function () {
 };
 
 GamePage.prototype.onNavigatedTo = function (params) {
-    this._gameController.load(params);
+    this._levelModel = params.model;
+
+    this._gameController.load(params.level);
     this._gameController.start();
 };
 
