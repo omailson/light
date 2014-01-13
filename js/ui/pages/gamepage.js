@@ -65,6 +65,16 @@ GamePage.prototype._onYouWinDialogDismissed = function (reason) {
             this._gameController.reload();
             break;
         case YouWinDialog.DismissReason.Next:
+            this._goToNextLevel();
             break;
+    }
+};
+
+GamePage.prototype._goToNextLevel = function () {
+    if (this._gameController.hasNextLevel()) {
+        this._gameController.loadNextLevel();
+        this._gameController.start();
+    } else {
+        main._goToMainPage();
     }
 };

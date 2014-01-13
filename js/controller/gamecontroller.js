@@ -94,6 +94,28 @@ GameController.prototype.load = function (level) {
 };
 
 /**
+ * Check whether there are more levels to be played
+ *
+ * @method hasNextLevel
+ * @return {Boolean}
+ */
+GameController.prototype.hasNextLevel = function () {
+    return this._level + 1 < this._model.length;
+};
+
+/**
+ * Load next level (if there's any)
+ *
+ * @method loadNextLevel
+ */
+GameController.prototype.loadNextLevel = function () {
+    if (!this.hasNextLevel())
+        return;
+
+    this.load(this._level + 1);
+};
+
+/**
  * Send input to the game, if it exists and is running
  *
  * @method addInput
