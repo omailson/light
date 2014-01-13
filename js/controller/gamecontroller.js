@@ -4,7 +4,8 @@
  * @class GameController
  * @constructor
  */
-var GameController = function () {
+var GameController = function (model) {
+    this._model = model;
     this._gameFactory = new GameFactory();
     this._game = null;
     this._canvas = null;

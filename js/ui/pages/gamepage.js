@@ -1,11 +1,11 @@
-var GamePage = function (element, navigator) {
+var GamePage = function (element, navigator, gameController) {
     Page.call(this, element, navigator);
 
     this._canvas = DOMTree.get(R.Canvas);
     this._inputListener = null;
     this._initInputListener(DOMTree.get(R.Body), this._canvas);
 
-    this._gameController = new GameController();
+    this._gameController = gameController;
     this._gameController.setCanvas(this._canvas);
     this._gameController.addEndedEventListener(this._onEnded.bind(this));
 
