@@ -59,7 +59,7 @@ GamePage.prototype._onEnded = function () {
 GamePage.prototype._onYouWinDialogDismissed = function (reason) {
     switch (reason) {
         case YouWinDialog.DismissReason.Menu:
-            main._goToMainPage();
+            this._goToMenu();
             break;
         case YouWinDialog.DismissReason.PlayAgain:
             this._gameController.reload();
@@ -75,6 +75,11 @@ GamePage.prototype._goToNextLevel = function () {
         this._gameController.loadNextLevel();
         this._gameController.start();
     } else {
-        main._goToMainPage();
+        this._goToMenu();
     }
+};
+
+GamePage.prototype._goToMenu = function() {
+    this._navigator.goTo("level-page", Component.TransitionType.SlideOutRight,
+            Component.TransitionType.SlideInLeft, this._levelModel);
 };
