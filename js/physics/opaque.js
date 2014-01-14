@@ -78,19 +78,3 @@ Opaque.prototype._ownsRay = function (ray) {
 
     return p1.equals(ray.p1) || p2.equals(ray.p1);
 };
-
-/**
- * Paint the object to a context
- *
- * @method paint
- * @param context {CanvasRenderingContext2D} A canvas 2D context
- */
-Opaque.prototype.paint = function (context) {
-    context.save();
-    context.lineWidth = 2;
-    context.beginPath();
-    context.moveTo(this.p1.x, this.p1.y);
-    context.lineTo(this.p2.x, this.p2.y);
-    context.stroke();
-    context.restore();
-};

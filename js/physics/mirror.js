@@ -93,20 +93,3 @@ Mirror.prototype.computeReflection = function (rays) {
     rayCollection.opacity = rays.opacity - 0.2;
     return rayCollection;
 };
-
-/**
- * Paint the object to a context
- *
- * @method paint
- * @param context {CanvasRenderingContext2D} A canvas 2D context
- */
-Mirror.prototype.paint = function (context) {
-    context.save();
-    context.setLineDash([3]);
-    context.lineWidth = 2;
-    context.beginPath();
-    context.moveTo(this.p1.x, this.p1.y);
-    context.lineTo(this.p2.x, this.p2.y);
-    context.stroke();
-    context.restore();
-};
