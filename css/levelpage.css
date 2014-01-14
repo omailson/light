@@ -13,8 +13,11 @@
     text-align: center;
 }
 
+/* Back button */
 #levelpage > p.button {
     width: 100px;
 
     clear: both;
+    position: absolute;
+    bottom: 0;
 }
