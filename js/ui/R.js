@@ -1,5 +1,6 @@
 var R = {
     Body: document.body,
+    Content: document.getElementById("content"),
     Canvas: document.getElementById("canvas"),
     GamePage: document.getElementById("gamepage"),
     YouWinDialog: {

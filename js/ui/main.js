@@ -23,10 +23,20 @@ var Main = function () {
  */
 Main.prototype._init = function () {
     this._loadLevels();
+    this._initContent();
     this._gameController = new GameController(this._levelModel);
     this._createPages();
     DOMTree.get(R.PausedText).style.display = "none";
     this._goToMainPage();
+};
+
+Main.prototype._initContent = function () {
+    var content = DOMTree.get(R.Content);
+    var canvas = DOMTree.get(R.Canvas);
+    var width = HTMLElementUtils.width(canvas) + 2;
+    var height = HTMLElementUtils.height(canvas) + 2;
+    HTMLElementUtils.setWidth(content, width);
+    HTMLElementUtils.setHeight(content, height);
 };
 
 Main.prototype._createPages = function () {
