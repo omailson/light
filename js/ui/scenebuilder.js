@@ -43,3 +43,9 @@ SceneBuilder.prototype.buildTargetSprite = function (data) {
     target.readData(data, this._worldBuilder);
     this._scene.addSprite(target);
 };
+
+SceneBuilder.prototype.buildWallSprite = function(data) {
+    var wall = new WallSprite();
+    wall.readData(data, this._worldBuilder);
+    this._scene.addSprite(wall);
+};

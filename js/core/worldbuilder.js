@@ -39,3 +39,10 @@ WorldBuilder.prototype.buildTargetEntity = function (params) {
     this._world.setTarget(target);
     return target;
 };
+
+WorldBuilder.prototype.buildWallEntity = function(params) {
+    var wall = new WallEntity(params);
+    wall.initPhysics(this._world.physicsWorld());
+    this._world.addEntity(wall);
+    return wall;
+};

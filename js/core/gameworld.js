@@ -41,6 +41,8 @@ GameWorld.prototype.update = function (delta) {
 
     for (i = 0; i < this._entities.length; i++) {
         this._entities[i].update(delta);
+        if (this._entities[i].dirtyPhysics)
+            this._entities[i].initPhysics(this.physicsWorld());
     }
 
     if (this._targetHit())

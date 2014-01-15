@@ -34,6 +34,8 @@ GameFactory.prototype._createSceneSprites = function (sceneBuilder, sprites) {
             sceneBuilder.buildLightBoxSprite(sprites[i]);
         } else if (sprites[i].type === "target") {
             sceneBuilder.buildTargetSprite(sprites[i]);
+        } else if (sprites[i].type === "wall") {
+            sceneBuilder.buildWallSprite(sprites[i]);
         }
     }
 };

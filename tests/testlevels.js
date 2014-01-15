@@ -140,4 +140,11 @@ TestLevels.levels = [
             {type: "target", pos: {x: 175, y: 50}, colors: ["yellow"]},
         ],
     },
+    {
+        sprites: [
+            {type: "lightbox", pos: {x: 80, y: 520}, color: "yellow", structure: {width: 4, height: 4, map: [1, 1,0, 1, 1,1, 1, 1,1, 1, 1,1]}},
+            {type: "target", pos: {x: 690, y: 70}, colors: ["yellow"]},
+            {type: "wall", pos: {x: 141, y: 220}, structure: {orientation: "horizontal", map: [2,1,0,0,1,1,1,1,1,1,1,1]}}
+        ]
+    },
 ];
