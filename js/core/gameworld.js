@@ -62,7 +62,8 @@ GameWorld.prototype.addLight = function (light) {
 
 GameWorld.prototype.addEntity = function (entity) {
     this._entities.push(entity);
-    this._inputManager.registerEntity(entity);
+    if (isInstanceOf(entity, InteractiveEntity))
+        this._inputManager.registerEntity(entity);
 };
 
 GameWorld.prototype.setTarget = function (entity) {
