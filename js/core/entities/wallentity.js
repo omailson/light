@@ -23,7 +23,7 @@ var WallEntity = function (params) {
     this._computeSize();
 };
 
-inherits(LightBoxEntity, InteractiveEntity);
+inherits(WallEntity, InteractiveEntity);
 
 /**
  * Return the bounding box of the object
