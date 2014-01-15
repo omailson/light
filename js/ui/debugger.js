@@ -2,23 +2,27 @@ var Debugger = function (main) {
     this.main = main;
 };
 
+Debugger.prototype.game = function() {
+    return this.main._gameController._game;
+};
+
 Debugger.prototype.context = function () {
-    return this.main._game._context;
+    return this.game()._context;
 };
 
 Debugger.prototype.scene = function () {
-    return this.main._game._scene;
+    return this.game()._scene;
 };
 
 Debugger.prototype.dumpLevel = function () {
     var level = [];
-    var lights = main._game._scene._lights;
+    var lights = this.scene()._lights;
     for (var i = 0; i < lights.length; i++) {
         var data = this.dumpLight(lights[i]);
         level.push(data);
     }
 
-    var objects = main._game._scene._sprites;
+    var objects = this.scene()._sprites;
     for (var i = 0; i < objects.length; i++) {
         var data = this.dumpObject(objects[i]);
         level.push(data);
