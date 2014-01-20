@@ -2,6 +2,17 @@ var SceneBuilder = function (worldBuilder, canvasElement) {
     this._worldBuilder = worldBuilder;
     this._scene = new Scene();
     this._scene.setSize(canvasElement.width, canvasElement.height);
+
+    var compositionBuffer = this._createCompositionBuffer(canvasElement);
+    this._scene.setCompositionBuffer(compositionBuffer);
+};
+
+SceneBuilder.prototype._createCompositionBuffer = function(canvas) {
+    var compositionCanvas = document.createElement("canvas");
+    compositionCanvas.width = canvas.width;
+    compositionCanvas.height = canvas.height;
+
+    return compositionCanvas.getContext("2d");
 };
 
 SceneBuilder.prototype.scene = function () {
@@ -33,7 +44,7 @@ SceneBuilder.prototype.buildLightSprite = function (data) {
 };
 
 SceneBuilder.prototype.buildLightBoxSprite = function (data) {
-    var lightBox = new LightBoxSprite();
+    var lightBox = new LightBoxSprite(this._scene.compositionBuffer());
     lightBox.readData(data, this._worldBuilder);
     this._scene.addLightBox(lightBox);
 };

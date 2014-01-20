@@ -1,9 +1,11 @@
-var LightBoxSprite = function () {
+var LightBoxSprite = function (compositionBuffer) {
     this.x = 0;
     this.y = 0;
     this.color = "";
     this.entity = null;
     this.structure = {};
+    this._buffer = compositionBuffer;
+    this._localBuffer = this._createLocalBuffer();
 
     var images = {
         "sprites/brick_top_left.svg": "data/images/sprites/brick_top_left.svg",
@@ -57,6 +59,9 @@ LightBoxSprite.prototype.update = function (delta) {
 LightBoxSprite.prototype.paint = function (context) {
     var rect = this.entity.boundingBox();
 
+    // Draw light only
+    this._drawLight();
+
     context.save();
 
     // Fill the background with the light color
@@ -68,10 +73,6 @@ LightBoxSprite.prototype.paint = function (context) {
     context.lineTo(rect.bottomLeft().x, rect.bottomLeft().y);
     context.lineTo(rect.topLeft().x, rect.topLeft().y);
     context.fill();
-
-
-    // XXX
-    LightSprite.prototype.draw.call(this, context);
 
     // Paint the border
     var w = this.structure.width;
@@ -125,6 +126,48 @@ LightBoxSprite.prototype.paint = function (context) {
     }
 
     context.restore();
+};
+
+LightBoxSprite.prototype._drawLight = function() {
+    this._localBuffer.canvas.width = this._localBuffer.canvas.width;
+    LightSprite.prototype.draw.call(this, this._localBuffer); // XXX
+
+    var src = this._localBuffer.getImageData(0, 0,
+            this._localBuffer.canvas.width,
+            this._localBuffer.canvas.height);
+    var dest = this._buffer.getImageData(0, 0,
+            this._buffer.canvas.width, this._buffer.canvas.height);
+
+    var total = src.data.length;
+    for (var i = 0; i < total; i += 4) {
+        if (src.data[i+3] === 0)
+            continue;
+
+        if (dest.data[i+3] === 0) {
+            dest.data[i+0] = src.data[i+0];
+            dest.data[i+1] = src.data[i+1];
+            dest.data[i+2] = src.data[i+2];
+            dest.data[i+3] = src.data[i+3];
+        } else {
+            var c1 = [src.data[i+0], src.data[i+1], src.data[i+2], src.data[i+3]];
+            var c2 = [dest.data[i+0], dest.data[i+1], dest.data[i+2], dest.data[i+3]];
+            var color = ColorUtils.mix(c1, c2);
+            dest.data[i+0] = color[0];
+            dest.data[i+1] = color[1];
+            dest.data[i+2] = color[2];
+            dest.data[i+3] = 255;
+        }
+    }
+
+    this._buffer.putImageData(dest, 0, 0);
+};
+
+LightBoxSprite.prototype._createLocalBuffer = function() {
+    var localCanvas = document.createElement("canvas");
+    localCanvas.width = this._buffer.canvas.width;
+    localCanvas.height = this._buffer.canvas.height;
+
+    return localCanvas.getContext("2d");
 };
 
 LightBoxSprite.prototype.readData = function (data, builder) {
