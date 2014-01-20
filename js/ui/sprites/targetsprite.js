@@ -15,11 +15,25 @@ TargetSprite.prototype.paint = function (context) {
 };
 
 TargetSprite.prototype.draw = function (context) {
+    var color = this.colors.reduce(TargetSprite._colorReduceFunction);
+
     context.beginPath();
-    context.fillStyle = this.colors[0];
+    context.fillStyle = color.rgbaString();
     context.arc(this.x, this.y, 10, 0, 2*Math.PI);
     context.fill();
     context.stroke();
+};
+
+/**
+ * @method _colorReduceFunction
+ * @private
+ * @static
+ * @param c1 {Color}
+ * @param c2 {Color}
+ * @return {Color}
+ */
+TargetSprite._colorReduceFunction = function (c1, c2) {
+    return Color().rgb(ColorUtils.mix(c1.rgbArray(), c2.rgbArray()));
 };
 
 TargetSprite.prototype.readData = function (data, builder) {
@@ -31,7 +45,9 @@ TargetSprite.prototype.readData = function (data, builder) {
 
     this.x = params.x;
     this.y = params.y;
-    this.colors = params.colors;
+    this.colors = params.colors.map(function (color) {
+        return Color(color);
+    });
 
     this.entity = builder.buildTargetEntity(params);
 };
