@@ -17,6 +17,7 @@ MirrorSprite.prototype.draw = function (context) {
     context.save();
     context.setLineDash([3]);
     context.lineWidth = 2;
+    context.strokeStyle = "white";
     context.beginPath();
     context.moveTo(this.p1.x, this.p1.y);
     context.lineTo(this.p2.x, this.p2.y);
