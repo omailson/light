@@ -110,3 +110,26 @@ Debugger.prototype.paintLineSegment = function (lineSegment) {
     context.stroke();
     context.restore();
 };
+
+Debugger.makeBox = function (width, height) {
+    var r = "";
+
+    r += "1, ";
+    for (var x = 1; x < width-1; x++) {
+        r += "1,";
+    }
+    r += " 1, ";
+    for (var y = 1; y < height-1; y++) {
+        r += "1,";
+    }
+    r += " 1, ";
+    for (var x = 1; x < width-1; x++) {
+        r += "1,";
+    }
+    r += " 1, ";
+    for (var y = 1; y < height-1; y++) {
+        r += "1,";
+    }
+
+    return r.trim().slice(0, -1);
+};
