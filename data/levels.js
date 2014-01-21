@@ -32,4 +32,15 @@ Levels.data = [
             {type: "target", pos: {x: 730, y: 550}, colors: ["yellow", "red"]}
         ]
     },
+    {
+        sprites: [
+            {type: "lightbox", pos: {x: 80, y: 520}, color: "darkblue", structure: {width: 4, height: 4, map: [1, 1,1, 1, 1,1, 1, 1,1, 1, 1,1]}},
+            {type: "lightbox", pos: {x: 700, y: 520}, color: "crimson", structure: {width: 4, height: 4, map: [1, 1,1, 1, 1,1, 1, 1,1, 1, 1,1]}},
+            {type: "mirror", p1: {x: 300, y: 126}, p2: {x: 357, y: 137}},
+            {type: "mirror", p1: {x: 43, y: 312}, p2: {x: 48, y: 250}},
+            {type: "wall", pos: {x: 245, y: 443}, structure: {orientation: "vertical", map: [2,2,2,2]}},
+            {type: "wall", pos: {x: 536, y: 493}, structure: {orientation: "vertical", map: [2,2,2]}},
+            {type: "target", pos: {x: 400, y: 520}, colors: ["darkblue", "crimson"]}
+        ]
+    },
 ];
