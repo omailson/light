@@ -16,11 +16,16 @@ TargetSprite.prototype.paint = function (context) {
 
 TargetSprite.prototype.draw = function (context) {
     var color = this.colors.reduce(TargetSprite._colorReduceFunction);
+    var brightness = ColorUtils.brightness(color.rgbaArray());
 
     context.beginPath();
     context.fillStyle = color.rgbaString();
     context.arc(this.x, this.y, 10, 0, 2*Math.PI);
     context.fill();
+    if (brightness > 0.51)
+        context.strokeStyle = "black";
+    else
+        context.strokeStyle = "white";
     context.stroke();
 };
 
