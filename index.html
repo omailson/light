@@ -16,6 +16,7 @@
         <div id="content">
             <div id="gamepage" class="page hidden">
                 <canvas id="canvas" width="800" height="600"></canvas>
+                <p id="scorewidget">Score: <span>0</span></p>
             </div>
 
             <div id="you-win-dialog" class="dialog hidden">
@@ -43,6 +44,8 @@
 
         <script src="data/levels.js"></script>
 
+        <script src="js/models/levelinfo.js"></script>
+
         <script src="js/externals/touchy/touchy.js"></script>
         <script src="js/externals/modernizr.custom.light.js"></script>
         <script src="js/externals/color/color-0.4.4.js"></script>
@@ -69,6 +72,7 @@
 
         <script src="js/core/inputmanager.js"></script>
         <script src="js/core/inputevent.js"></script>
+        <script src="js/core/scoreboard.js"></script>
         <script src="js/core/gameworld.js"></script>
         <script src="js/core/worldbuilder.js"></script>
         <script src="js/core/entities/interactiveentity.js"></script>
@@ -104,6 +108,7 @@
         <script src="js/ui/dialog.js"></script>
         <script src="js/ui/dialogs/youwindialog.js"></script>
         <script src="js/ui/widgets/button.js"></script>
+        <script src="js/ui/widgets/scorewidget.js"></script>
         <script src="js/ui/game.js"></script>
         <script src="js/ui/gamefactory.js"></script>
         <script src="js/ui/debugger.js"></script>

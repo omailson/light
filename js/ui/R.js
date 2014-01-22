@@ -19,5 +19,9 @@ var R = {
         Levels: function () { return document.querySelectorAll("#levelpage li"); },
         Back: document.getElementById("levelpage-back")
     },
+    ScoreWidget: {
+        root: document.getElementById("scorewidget"),
+        ScoreValue: document.querySelector("#scorewidget > span")
+    },
     PausedText: document.getElementById("paused")
 };

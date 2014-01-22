@@ -1,7 +1,10 @@
-var Game = function (world, scene, context) {
+var Game = function (world, scene, context, scoreWidget) {
     this._gameWorld = world;
     this._scene = scene;
     this._context = context;
+    this._scoreWidget = scoreWidget;
+
+    this._gameWorld.addScoreChangedEventListener(this._onScoreChanged.bind(this));
 
     this._timestamp = 0;
     this._pause = false;
@@ -142,4 +145,8 @@ Game.prototype.update = function (delta) {
 Game.prototype.paint = function () {
     this._context.canvas.width = this._context.canvas.width;
     this._scene.paint(this._context);
+};
+
+Game.prototype._onScoreChanged = function(score) {
+    this._scoreWidget.setScore(score);
 };

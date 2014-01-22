@@ -19,6 +19,7 @@ var WallEntity = function (params) {
     this.dirtyPhysics = false;
 
     this._bodies = [];
+    this._blockDestroyedDispatcher = new EventDispatcher();
 
     this._computeSize();
 };
@@ -142,9 +143,18 @@ WallEntity.prototype.onRelease = function(ev) {
     if (this.structure.map[index] === 1) {
         this.structure.map[index] = 0;
         this._computePhysics();
+        this._blockDestroyedDispatcher.dispatch();
     }
 };
 
 WallEntity.prototype._computePhysics = function() {
     this.dirtyPhysics = true;
+};
+
+WallEntity.prototype.addBlockDestroyedEventListener = function(listener) {
+    this._blockDestroyedDispatcher.addListener(listener);
+};
+
+WallEntity.prototype.removeBlockDestroyedEventListener = function(listener) {
+    this._blockDestroyedDispatcher.removeListener(listener);
 };

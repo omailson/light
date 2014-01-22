@@ -12,3 +12,16 @@ div.buttons > .button {
 .button:hover {
     background-color: #444;
 }
+
+#scorewidget {
+    position: absolute;
+    top: 0;
+
+    margin-left: 16px;
+    padding: 4px;
+
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    opacity: 0.8;
+}

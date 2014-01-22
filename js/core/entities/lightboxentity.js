@@ -17,6 +17,9 @@ var LightBoxEntity = function (params) {
     this.destroyedLights = []; // To be consumed by the GameWorld
     // Internal reference to all owned light entities
     this._lights = [];
+
+    this._blockDestroyedDispatcher = new EventDispatcher();
+
     this._computeLightSources();
 };
 
@@ -194,5 +197,14 @@ LightBoxEntity.prototype.onRelease = function (ev) {
     if (this.structure.map[index] === 1) {
         this.structure.map[index] = 0;
         this._computeLightSources();
+        this._blockDestroyedDispatcher.dispatch();
     }
+};
+
+LightBoxEntity.prototype.addBlockDestroyedEventListener = function(listener) {
+    this._blockDestroyedDispatcher.addListener(listener);
+};
+
+LightBoxEntity.prototype.removeBlockDestroyedEventListener = function(listener) {
+    this._blockDestroyedDispatcher.removeListener(listener);
 };

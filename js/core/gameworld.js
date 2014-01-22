@@ -6,6 +6,8 @@ var GameWorld = function () {
     this._target = null;
     this._bounds = {x: 0, y: 0, width: 0, height: 0};
     this._finished = false;
+    this._scoreBoard = null;
+    this._scoreChangedDispatcher = new EventDispatcher();
 };
 
 GameWorld.prototype.physicsWorld = function () {
@@ -15,6 +17,11 @@ GameWorld.prototype.physicsWorld = function () {
 GameWorld.prototype.setSize = function (width, height) {
     this._bounds.width = width;
     this._bounds.height = height;
+};
+
+GameWorld.prototype.setScoreBoard = function(scoreBoard) {
+    this._scoreBoard = scoreBoard;
+    this._scoreBoard.addScoreChangedEventListener(this._onScoreChanged.bind(this));
 };
 
 /**
@@ -52,6 +59,7 @@ GameWorld.prototype.update = function (delta) {
 GameWorld.prototype.addLightBox = function (light) {
     this._lights.push(light);
     this._inputManager.registerEntity(light);
+    light.addBlockDestroyedEventListener(this._onLightBoxDestroyed.bind(this));
 };
 
 GameWorld.prototype.addLight = function (light) {
@@ -64,6 +72,8 @@ GameWorld.prototype.addEntity = function (entity) {
     this._entities.push(entity);
     if (isInstanceOf(entity, InteractiveEntity))
         this._inputManager.registerEntity(entity);
+    if (isInstanceOf(entity, WallEntity))
+        entity.addBlockDestroyedEventListener(this._onWallDestroyed.bind(this));
 };
 
 GameWorld.prototype.setTarget = function (entity) {
@@ -131,4 +141,24 @@ GameWorld.prototype.finish = function () {
  */
 GameWorld.prototype.hasFinished = function () {
     return this._finished;
+};
+
+GameWorld.prototype._onLightBoxDestroyed = function() {
+    this._scoreBoard.lightBoxBlockDestroyed();
+};
+
+GameWorld.prototype._onWallDestroyed = function() {
+    this._scoreBoard.wallBlockDestroyed();
+};
+
+GameWorld.prototype._onScoreChanged = function(score) {
+    this._scoreChangedDispatcher.dispatch(score);
+};
+
+GameWorld.prototype.addScoreChangedEventListener = function(listener) {
+    this._scoreChangedDispatcher.addListener(listener);
+};
+
+GameWorld.prototype.removeScoreChangedEventListener = function(listener) {
+    thsi._scoreChangedDispatcher.removeListener(listener);
 };

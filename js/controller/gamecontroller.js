@@ -89,7 +89,7 @@ GameController.prototype.reload = function () {
  */
 GameController.prototype.load = function (level) {
     this._level = level;
-    this._levelData = this._model[level];
+    this._levelData = new Level(this._model[level]);
     this._createGame();
 };
 

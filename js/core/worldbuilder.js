@@ -46,3 +46,8 @@ WorldBuilder.prototype.buildWallEntity = function(params) {
     this._world.addEntity(wall);
     return wall;
 };
+
+WorldBuilder.prototype.buildScoreBoard = function(initialScore) {
+    var scoreBoard = new ScoreBoard(initialScore);
+    this._world.setScoreBoard(scoreBoard);
+};

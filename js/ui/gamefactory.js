@@ -1,8 +1,8 @@
 var GameFactory = function () {
 };
 
-GameFactory.prototype.create = function (canvasElement, params) {
-    var levelData = deepCopy(params);
+GameFactory.prototype.create = function (canvasElement, level) {
+    var levelData = deepCopy(level);
 
     var worldBuilder = new WorldBuilder();
     var sceneBuilder = this._createSceneBuilder(worldBuilder, canvasElement);
@@ -13,9 +13,13 @@ GameFactory.prototype.create = function (canvasElement, params) {
     var world = worldBuilder.getWorld();
     world.setSize(scene.width, scene.height);
 
+    var initialScore = level.maxScore();
+    worldBuilder.buildScoreBoard(initialScore);
+    var scoreWidget = this._createScoreWidget(initialScore);
+
     var context = canvasElement.getContext("2d");
 
-    return new Game(world, scene, context);
+    return new Game(world, scene, context, scoreWidget);
 };
 
 GameFactory.prototype._createSceneBuilder = function (worldBuilder, canvasElement) {
@@ -38,4 +42,11 @@ GameFactory.prototype._createSceneSprites = function (sceneBuilder, sprites) {
             sceneBuilder.buildWallSprite(sprites[i]);
         }
     }
+};
+
+GameFactory.prototype._createScoreWidget = function(initialScore) {
+    var scoreWidget = new ScoreWidget();
+    scoreWidget.setScore(initialScore);
+
+    return scoreWidget;
 };
