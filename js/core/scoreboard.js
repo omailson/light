@@ -22,8 +22,14 @@ ScoreBoard.prototype._subtractScore = function(value) {
 };
 
 ScoreBoard.prototype._setScore = function(score) {
+    if (this._score === score)
+        return;
+
+    if (score < 0)
+        score = 0;
+    var oldScore = this._score;
     this._score = score;
-    this._scoreChangedDispatcher.dispatch(score);
+    this._scoreChangedDispatcher.dispatch(oldScore, score);
 };
 
 ScoreBoard.prototype.addScoreChangedEventListener = function(listener) {

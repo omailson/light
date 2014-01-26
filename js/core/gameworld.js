@@ -151,8 +151,8 @@ GameWorld.prototype._onWallDestroyed = function() {
     this._scoreBoard.wallBlockDestroyed();
 };
 
-GameWorld.prototype._onScoreChanged = function(score) {
-    this._scoreChangedDispatcher.dispatch(score);
+GameWorld.prototype._onScoreChanged = function(oldScore, newScore) {
+    this._scoreChangedDispatcher.dispatch(oldScore, newScore);
 };
 
 GameWorld.prototype.addScoreChangedEventListener = function(listener) {

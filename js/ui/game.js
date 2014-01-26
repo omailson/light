@@ -147,6 +147,6 @@ Game.prototype.paint = function () {
     this._scene.paint(this._context);
 };
 
-Game.prototype._onScoreChanged = function(score) {
-    this._scoreWidget.setScore(score);
+Game.prototype._onScoreChanged = function(oldScore, newScore) {
+    this._scoreWidget.setScore(newScore);
 };
