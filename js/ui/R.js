@@ -23,5 +23,6 @@ var R = {
         root: document.getElementById("scorewidget"),
         ScoreValue: document.querySelector("#scorewidget > span")
     },
+    ChangedScoreWidget: document.getElementById("changedscore"),
     PausedText: document.getElementById("paused")
 };

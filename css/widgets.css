@@ -25,3 +25,24 @@ div.buttons > .button {
     border: 1px solid black;
     opacity: 0.8;
 }
+
+#changedscore {
+    position: absolute;
+
+    left: -200px;
+
+    font-size: 40px;
+    color: white;
+
+    -webkit-transform: scale(0.5);
+    -webkit-transition: -webkit-transform .5s, opacity .5s;
+    text-shadow: -1px 0    5px black,
+                 0    1px  5px black,
+                 1px  0    5px black,
+                 0    -1px 5px black;
+}
+
+#changedscore.animate {
+    -webkit-transform: scale(2);
+    opacity: 0;
+}

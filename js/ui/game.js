@@ -8,6 +8,7 @@ var Game = function (world, scene, context, scoreWidget) {
 
     this._timestamp = 0;
     this._pause = false;
+    this._lastMousePosition = null;
     this._endedDispatcher = new EventDispatcher();
 };
 
@@ -21,6 +22,7 @@ Game.prototype.init = function () {
  * @param e {InputEvent} input event
  */
 Game.prototype.addInput = function (e) {
+    this._lastMousePosition = e.position;
     if (!this._gameWorld.hasFinished())
         this._gameWorld.addInput(e);
 };
@@ -148,5 +150,8 @@ Game.prototype.paint = function () {
 };
 
 Game.prototype._onScoreChanged = function(oldScore, newScore) {
+    var changedScoreWidget = new ChangedScoreWidget(newScore - oldScore);
+    changedScoreWidget.setPosition(this._lastMousePosition.x, this._lastMousePosition.y);
+    changedScoreWidget.animate();
     this._scoreWidget.setScore(newScore);
 };
