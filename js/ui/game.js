@@ -8,6 +8,7 @@ var Game = function (world, scene, context) {
     this._timestamp = 0;
     this._pause = false;
     this._lastMousePosition = null;
+    this.score = 0;
     this._endedDispatcher = new EventDispatcher();
 };
 
@@ -59,7 +60,7 @@ Game.prototype._tick = function (timestamp) {
     }
 
     if (this._gameWorld.hasFinished()) {
-        this._endedDispatcher.dispatch();
+        this._endedDispatcher.dispatch(this._currentScore);
         return;
     }
 
@@ -160,4 +161,5 @@ Game.prototype._onScoreChanged = function(oldScore, newScore) {
     var changedScoreWidget = new ChangedScoreWidget(newScore - oldScore);
     changedScoreWidget.setPosition(this._lastMousePosition.x, this._lastMousePosition.y);
     changedScoreWidget.animate();
+    this.score = newScore;
 };

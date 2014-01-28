@@ -69,3 +69,28 @@ YouWinDialog.prototype._onPlayAgainClicked = function () {
 YouWinDialog.prototype._onNextClicked = function () {
     this._readyToDismiss(YouWinDialog.DismissReason.Next);
 };
+
+YouWinDialog.prototype.setStars = function (stars) {
+    var value = "";
+
+    switch (stars) {
+        case 3:
+            value = "&#9733;&#9733;&#9733;";
+            break;
+
+        case 2:
+            value = "&#9733;&#9733;&#9734;";
+            break;
+
+        case 1:
+            value = "&#9733;&#9734;&#9734;";
+            break;
+
+        case 0:
+        default:
+            value = "&#9734;&#9734;&#9734;";
+            break;
+    }
+
+    DOMTree.get(R.YouWinDialog.Stars).innerHTML = value;
+};

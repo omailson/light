@@ -44,7 +44,14 @@ GameController.prototype._createGame = function () {
  * @private
  */
 GameController.prototype._onEnded = function () {
-    this._endedDispatcher.dispatch();
+    var stars = 0;
+    if (this._game.score >= this._levelData.gold)
+        stars = 3;
+    else if (this._game.score >= this._levelData.silver)
+        stars = 2;
+    else if (this._game.score >= this._levelData.bronze)
+        stars = 1;
+    this._endedDispatcher.dispatch(stars);
 };
 
 /**

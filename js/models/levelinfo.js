@@ -1,6 +1,10 @@
 var Level = function (params) {
     this.sprites = params.sprites;
     this._maxScore = params.maxScore;
+
+    this.gold = params.gold;
+    this.silver = params.silver;
+    this.bronze = params.bronze;
 };
 
 Level.prototype.maxScore = function() {

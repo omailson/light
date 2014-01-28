@@ -7,7 +7,8 @@ var R = {
         root: document.getElementById("you-win-dialog"),
         Menu: document.getElementById("you-win-menu"),
         PlayAgain: document.getElementById("you-win-playagain"),
-        NextLevel: document.getElementById("you-win-nextlevel")
+        NextLevel: document.getElementById("you-win-nextlevel"),
+        Stars: document.getElementById("stars")
     },
     HomePage: {
         root: document.getElementById("homepage"),

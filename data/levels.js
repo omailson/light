@@ -3,6 +3,9 @@ var Levels = {};
 Levels.data = [
     {
         maxScore: 100,
+        gold: 98,
+        silver: 94,
+        bronze: 86,
         sprites: [
             {type: "lightbox", pos: {x: 80, y: 520}, color: "yellow", structure: {width: 4, height: 4, map: [1, 1,1, 1, 1,1, 1, 1,1, 1, 1,1]}},
             {type: "target", pos: {x: 690, y: 70}, colors: ["yellow"]}
@@ -10,6 +13,9 @@ Levels.data = [
     },
     {
         maxScore: 100,
+        gold: 95,
+        silver: 92,
+        bronze: 90,
         sprites: [
             {type: "lightbox", pos: {x: 80, y: 300}, color: "yellow", structure: {width: 4, height: 5, map: [1, 1,1, 1, 1,1,1, 1, 1,1, 1, 1,1,1]}},
             {type: "target", pos: {x: 690, y: 300}, colors: ["yellow"]},
@@ -20,6 +26,9 @@ Levels.data = [
     },
     {
         maxScore: 100,
+        gold: 97,
+        silver: 96,
+        bronze: 94,
         sprites: [
             {type: "lightbox", pos: {x: 400, y: 500}, color: "yellow", structure: {width: 4, height: 4, map: [1, 1,1, 1, 1,1, 1, 1,1, 1, 1,1]}},
             {type: "target", pos: {x: 400, y: 40}, colors: ["yellow"]},
@@ -30,6 +39,9 @@ Levels.data = [
     },
     {
         maxScore: 200,
+        gold: 194,
+        silver: 186,
+        bronze: 170,
         sprites: [
             {type: "lightbox", pos: {x: 80, y: 520}, color: "yellow", structure: {width: 4, height: 4, map: [1, 1,2, 2, 1,1, 1, 1,1, 1, 1,1]}},
             {type: "lightbox", pos: {x: 320, y: 80}, color: "red", structure: {width: 4, height: 4, map: [1, 1,1, 1, 1,1, 1, 1,2, 2, 1,1]}},
@@ -38,6 +50,9 @@ Levels.data = [
     },
     {
         maxScore: 500,
+        gold: 494,
+        silver: 486,
+        bronze: 470,
         sprites: [
             {type: "lightbox", pos: {x: 80, y: 520}, color: "darkblue", structure: {width: 4, height: 4, map: [1, 1,1, 1, 1,1, 1, 1,1, 1, 1,1]}},
             {type: "lightbox", pos: {x: 700, y: 520}, color: "crimson", structure: {width: 4, height: 4, map: [1, 1,1, 1, 1,1, 1, 1,1, 1, 1,1]}},
@@ -50,6 +65,9 @@ Levels.data = [
     },
     {
         maxScore: 1000,
+        gold: 992,
+        silver: 986,
+        bronze: 978,
         sprites: [
             {type: "lightbox", pos: {x: 100, y: 90}, color: "yellow", structure: {width: 4, height: 4, map: [1, 1,1, 1, 2,2, 1, 1,1, 1, 1,1]}},
             {type: "lightbox", pos: {x: 470, y: 90}, color: "darkcyan", structure: {width: 4, height: 4, map: [1, 1,1, 1, 1,1, 1, 1,1, 1, 2,2]}},

@@ -70,7 +70,8 @@ GamePage.prototype._onScoreChanged = function (oldScore, newScore) {
     this._scoreWidget.setScore(newScore);
 };
 
-GamePage.prototype._onEnded = function () {
+GamePage.prototype._onEnded = function (stars) {
+    this._youWinDialog.setStars(stars);
     this._youWinDialog.show();
     this._scoreWidget.hide();
 };
