@@ -2,12 +2,14 @@ var Levels = {};
 
 Levels.data = [
     {
+        maxScore: 100,
         sprites: [
             {type: "lightbox", pos: {x: 80, y: 520}, color: "yellow", structure: {width: 4, height: 4, map: [1, 1,1, 1, 1,1, 1, 1,1, 1, 1,1]}},
             {type: "target", pos: {x: 690, y: 70}, colors: ["yellow"]}
         ]
     },
     {
+        maxScore: 100,
         sprites: [
             {type: "lightbox", pos: {x: 80, y: 300}, color: "yellow", structure: {width: 4, height: 5, map: [1, 1,1, 1, 1,1,1, 1, 1,1, 1, 1,1,1]}},
             {type: "target", pos: {x: 690, y: 300}, colors: ["yellow"]},
@@ -17,6 +19,7 @@ Levels.data = [
         ]
     },
     {
+        maxScore: 100,
         sprites: [
             {type: "lightbox", pos: {x: 400, y: 500}, color: "yellow", structure: {width: 4, height: 4, map: [1, 1,1, 1, 1,1, 1, 1,1, 1, 1,1]}},
             {type: "target", pos: {x: 400, y: 40}, colors: ["yellow"]},
@@ -26,6 +29,7 @@ Levels.data = [
         ]
     },
     {
+        maxScore: 200,
         sprites: [
             {type: "lightbox", pos: {x: 80, y: 520}, color: "yellow", structure: {width: 4, height: 4, map: [1, 1,2, 2, 1,1, 1, 1,1, 1, 1,1]}},
             {type: "lightbox", pos: {x: 320, y: 80}, color: "red", structure: {width: 4, height: 4, map: [1, 1,1, 1, 1,1, 1, 1,2, 2, 1,1]}},
@@ -33,6 +37,7 @@ Levels.data = [
         ]
     },
     {
+        maxScore: 500,
         sprites: [
             {type: "lightbox", pos: {x: 80, y: 520}, color: "darkblue", structure: {width: 4, height: 4, map: [1, 1,1, 1, 1,1, 1, 1,1, 1, 1,1]}},
             {type: "lightbox", pos: {x: 700, y: 520}, color: "crimson", structure: {width: 4, height: 4, map: [1, 1,1, 1, 1,1, 1, 1,1, 1, 1,1]}},
@@ -44,6 +49,7 @@ Levels.data = [
         ]
     },
     {
+        maxScore: 1000,
         sprites: [
             {type: "lightbox", pos: {x: 100, y: 90}, color: "yellow", structure: {width: 4, height: 4, map: [1, 1,1, 1, 2,2, 1, 1,1, 1, 1,1]}},
             {type: "lightbox", pos: {x: 470, y: 90}, color: "darkcyan", structure: {width: 4, height: 4, map: [1, 1,1, 1, 1,1, 1, 1,1, 1, 2,2]}},
