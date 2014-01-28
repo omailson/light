@@ -1,3 +1,7 @@
+div.buttons {
+    display: inline-block;
+}
+
 div.buttons > .button {
     float: left;
 }

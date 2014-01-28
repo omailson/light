@@ -5,6 +5,8 @@ var YouWinDialog = function (element) {
     this._playAgainButton = null;
     this._nextButton = null;
     this._initButtons();
+
+    this.setTransitionIn("slideInTop");
 };
 
 inherits(YouWinDialog, Dialog);

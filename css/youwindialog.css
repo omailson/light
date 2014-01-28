@@ -1,4 +1,27 @@
 #you-win-dialog {
     background-color: #fff;
     opacity: 0.8;
+    height: 195px;
+}
+
+#you-win-dialog > p {
+    margin-left: 1em;
+    font-size: 110%;
+}
+
+#you-win-dialog > #stars {
+    text-align: center;
+    font-size: 400%;
+}
+
+#you-win-dialog.slideInTop {
+  -webkit-animation-name: slide-in-top;
+  -webkit-animation-duration: 700ms;
+  -webkit-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+  -webkit-animation-fill-mode: both;
+}
+
+@-webkit-keyframes slide-in-top {
+  from { top: -195px; }
+  to { top: 0; }
 }
