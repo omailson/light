@@ -1,8 +1,7 @@
-var Game = function (world, scene, context, scoreWidget) {
+var Game = function (world, scene, context) {
     this._gameWorld = world;
     this._scene = scene;
     this._context = context;
-    this._scoreWidget = scoreWidget;
 
     this._gameWorld.addScoreChangedEventListener(this._onScoreChanged.bind(this));
 
@@ -139,6 +138,14 @@ Game.prototype.removeEndedEventListener = function (listener) {
     this._endedDispatcher.removeListener(listener);
 };
 
+Game.prototype.addScoreChangedEventListener = function (listener) {
+    this._gameWorld.addScoreChangedEventListener(listener);
+};
+
+Game.prototype.removeScoreChangedEventListener = function (listener) {
+    this._gameWorld.removeScoreChangedEventListener(listener);
+};
+
 Game.prototype.update = function (delta) {
     this._gameWorld.update(delta);
     this._scene.update(delta);
@@ -153,5 +160,4 @@ Game.prototype._onScoreChanged = function(oldScore, newScore) {
     var changedScoreWidget = new ChangedScoreWidget(newScore - oldScore);
     changedScoreWidget.setPosition(this._lastMousePosition.x, this._lastMousePosition.y);
     changedScoreWidget.animate();
-    this._scoreWidget.setScore(newScore);
 };

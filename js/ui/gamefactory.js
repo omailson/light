@@ -15,11 +15,10 @@ GameFactory.prototype.create = function (canvasElement, level) {
 
     var initialScore = level.maxScore();
     worldBuilder.buildScoreBoard(initialScore);
-    var scoreWidget = this._createScoreWidget(initialScore);
 
     var context = canvasElement.getContext("2d");
 
-    return new Game(world, scene, context, scoreWidget);
+    return new Game(world, scene, context);
 };
 
 GameFactory.prototype._createSceneBuilder = function (worldBuilder, canvasElement) {
@@ -42,11 +41,4 @@ GameFactory.prototype._createSceneSprites = function (sceneBuilder, sprites) {
             sceneBuilder.buildWallSprite(sprites[i]);
         }
     }
-};
-
-GameFactory.prototype._createScoreWidget = function(initialScore) {
-    var scoreWidget = new ScoreWidget();
-    scoreWidget.setScore(initialScore);
-
-    return scoreWidget;
 };

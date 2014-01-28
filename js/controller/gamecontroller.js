@@ -12,6 +12,8 @@ var GameController = function (model) {
     this._levelData = {};
     this._level = -1;
 
+    this._startedDispatcher = new EventDispatcher();
+    this._scoreChangedDispatcher = new EventDispatcher();
     this._endedDispatcher = new EventDispatcher();
 };
 
@@ -34,6 +36,7 @@ GameController.prototype.setCanvas = function (canvas) {
 GameController.prototype._createGame = function () {
     this._game = this._gameFactory.create(this._canvas, this._levelData);
     this._game.addEndedEventListener(this._onEnded.bind(this));
+    this._game.addScoreChangedEventListener(this._scoreChangedDispatcher.dispatch.bind(this._scoreChangedDispatcher));
 };
 
 /**
@@ -51,6 +54,7 @@ GameController.prototype._onEnded = function () {
  */
 GameController.prototype.start = function () {
     this._game.start();
+    this._startedDispatcher.dispatch(this._levelData);
 };
 
 /**
@@ -78,7 +82,7 @@ GameController.prototype.resume = function () {
  */
 GameController.prototype.reload = function () {
     this._createGame();
-    this._game.start();
+    this.start();
 };
 
 /**
@@ -143,4 +147,37 @@ GameController.prototype.addEndedEventListener = function (listener) {
  */
 GameController.prototype.removeEndedEventListener = function (listener) {
     this._endedDispatcher.removeListener(listener);
+};
+
+/**
+ * @method addStartedEventListener
+ * @param listener {Function}
+ * @param listener.level {Level} The started level
+ */
+GameController.prototype.addStartedEventListener = function (listener) {
+    this._startedDispatcher.addListener(listener);
+};
+
+/**
+ * @method removeStartedDispatcher
+ * @param listener {Function}
+ */
+GameController.prototype.removeStartedDispatcher = function (listener) {
+    this._startedDispatcher.removeListener(listener);
+};
+
+/**
+ * @method addScoreChangedEventListener
+ * @param listener {Function}
+ */
+GameController.prototype.addScoreChangedEventListener = function (listener) {
+    this._scoreChangedDispatcher.addListener(listener);
+};
+
+/**
+ * @method removeScoreChangedEventListener
+ * @param listener {Function}
+ */
+GameController.prototype.removeScoreChangedEventListener = function (listener) {
+    this._scoreChangedDispatcher.removeListener(listener);
 };

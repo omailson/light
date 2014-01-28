@@ -8,9 +8,12 @@ var GamePage = function (element, navigator, gameController) {
     this._levelModel = null;
     this._gameController = gameController;
     this._gameController.setCanvas(this._canvas);
+    this._gameController.addStartedEventListener(this._onStarted.bind(this));
+    this._gameController.addScoreChangedEventListener(this._onScoreChanged.bind(this));
     this._gameController.addEndedEventListener(this._onEnded.bind(this));
 
     this._youWinDialog = this._createYouWinDialog(DOMTree.get(R.YouWinDialog));
+    this._scoreWidget = this._createScoreWidget();
 };
 
 inherits(GamePage, Page);
@@ -36,6 +39,11 @@ GamePage.prototype._createYouWinDialog = function (element) {
     return youWinDialog;
 };
 
+GamePage.prototype._createScoreWidget = function () {
+    var scoreWidget = new ScoreWidget();
+    return scoreWidget;
+};
+
 GamePage.prototype._onInputEvent = function (e) {
     this._gameController.addInput(e);
 };
@@ -52,8 +60,19 @@ GamePage.prototype.onNavigatedTo = function (params) {
     this._gameController.start();
 };
 
+GamePage.prototype._onStarted = function (level) {
+    var initialScore = level.maxScore();
+    this._scoreWidget.setScore(initialScore);
+    this._scoreWidget.show();
+};
+
+GamePage.prototype._onScoreChanged = function (oldScore, newScore) {
+    this._scoreWidget.setScore(newScore);
+};
+
 GamePage.prototype._onEnded = function () {
     this._youWinDialog.show();
+    this._scoreWidget.hide();
 };
 
 GamePage.prototype._onYouWinDialogDismissed = function (reason) {
