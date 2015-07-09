@@ -1,6 +1,6 @@
 [submodule "js/externals/touchy"]
 	path = js/externals/touchy
-	url = git://github.com/figueredo/Touchy.js.git
+	url = https://github.com/figueredo/Touchy.js.git
 [submodule "js/externals/color"]
 	path = js/externals/color
-	url = git://github.com/harthur/color.git
+	url = https://github.com/harthur/color.git
